@@ -22,4 +22,4 @@ treeR user repo sha =
 -- See <https://developer.github.com/v3/git/trees/#get-a-tree-recursively>
 nestedTreeR :: Name Owner -> Name Repo -> Name Tree -> Request k Tree
 nestedTreeR user repo sha =
-    query  ["repos", toPathPart user, toPathPart repo, "git", "trees", toPathPart sha] [("recursive", Just "1")]
+    query  ["repos", toPathPart user, toPathPart repo, "git", "trees", toPathPart sha] [("recursive", [QE "1"])]

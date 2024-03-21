@@ -228,7 +228,7 @@ data OrgMemberRole
     deriving (Show, Eq, Ord, Enum, Bounded, Typeable, Data, Generic)
 
 -- | Request query string
-type QueryString = [(BS.ByteString, Maybe BS.ByteString)]
+type QueryString = [(BS.ByteString, [EscapeItem])]
 
 -- | Count of elements
 type Count = Int

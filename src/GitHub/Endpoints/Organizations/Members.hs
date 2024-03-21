@@ -26,7 +26,7 @@ membersOfR organization =
 -- See <https://developer.github.com/v3/orgs/members/#members-list>
 membersOfWithR :: Name Organization -> OrgMemberFilter -> OrgMemberRole -> FetchCount -> Request k (Vector SimpleUser)
 membersOfWithR org f r =
-    pagedQuery ["orgs", toPathPart org, "members"] [("filter", Just f'), ("role", Just r')]
+    pagedQuery ["orgs", toPathPart org, "members"] [("filter", [QE f']), ("role", [QE r'])]
   where
     f' = case f of
         OrgMemberFilter2faDisabled -> "2fa_disabled"

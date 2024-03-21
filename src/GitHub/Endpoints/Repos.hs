@@ -28,16 +28,18 @@ module GitHub.Endpoints.Repos (
     module GitHub.Data,
     ) where
 
+import qualified Data.ByteString as BS
 import GitHub.Data
 import GitHub.Internal.Prelude
 import Prelude ()
 
-repoPublicityQueryString :: RepoPublicity -> QueryString
-repoPublicityQueryString RepoPublicityAll     = [("type", Just "all")]
-repoPublicityQueryString RepoPublicityOwner   = [("type", Just "owner")]
-repoPublicityQueryString RepoPublicityMember  = [("type", Just "member")]
-repoPublicityQueryString RepoPublicityPublic  = [("type", Just "public")]
-repoPublicityQueryString RepoPublicityPrivate = [("type", Just "private")]
+
+repoPublicityQueryString :: RepoPublicity -> [(BS.ByteString, [EscapeItem])]
+repoPublicityQueryString RepoPublicityAll     = [("type", [QE "all"])]
+repoPublicityQueryString RepoPublicityOwner   = [("type", [QE "owner"])]
+repoPublicityQueryString RepoPublicityMember  = [("type", [QE "member"])]
+repoPublicityQueryString RepoPublicityPublic  = [("type", [QE "public"])]
+repoPublicityQueryString RepoPublicityPrivate = [("type", [QE "private"])]
 
 -- | List your repositories.
 -- See <https://docs.github.com/en/rest/reference/repos#list-repositories-for-the-authenticated-user>
@@ -112,7 +114,7 @@ contributorsR
 contributorsR user repo anon =
     pagedQuery ["repos", toPathPart user, toPathPart repo, "contributors"] qs
   where
-    qs | anon      = [("anon", Just "true")]
+    qs | anon      = [("anon", [QE "true"])]
        | otherwise = []
 
 -- | List languages.
