@@ -25,7 +25,7 @@ deploymentsWithOptionsForR
     -> Request 'RA (Vector (Deployment a))
 deploymentsWithOptionsForR owner repo limit opts =
     pagedQuery (deployPaths owner repo)
-        (map (second Just . renderDeploymentQueryOption) opts)
+        (map (second (\x -> [QE x]) . renderDeploymentQueryOption) opts)
         limit
 
 -- | Create a deployment.

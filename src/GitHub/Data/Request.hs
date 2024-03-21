@@ -219,6 +219,10 @@ deriving instance Eq (GenRequest rw mt a)
 deriving instance Ord (GenRequest rw mt a)
 deriving instance Show (GenRequest rw mt a)
 
+instance Hashable EscapeItem where
+  hashWithSalt salt (QN x) = hashWithSalt salt x
+  hashWithSalt salt (QE x) = hashWithSalt salt x
+
 instance Hashable (GenRequest rw mt a) where
     hashWithSalt salt (Query ps qs) =
         salt `hashWithSalt` (0 :: Int)

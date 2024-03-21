@@ -19,12 +19,13 @@ import qualified Data.ByteString    as BS
 import qualified Data.Text          as T
 import qualified Data.Text.Encoding as TE
 
-renderCommitQueryOption :: CommitQueryOption -> (BS.ByteString, Maybe BS.ByteString)
-renderCommitQueryOption (CommitQuerySha sha)      = ("sha", Just $ TE.encodeUtf8 sha)
-renderCommitQueryOption (CommitQueryPath path)     = ("path", Just $ TE.encodeUtf8 path)
-renderCommitQueryOption (CommitQueryAuthor author) = ("author", Just $ TE.encodeUtf8 author)
-renderCommitQueryOption (CommitQuerySince date)    = ("since", Just $ TE.encodeUtf8 . T.pack $ formatISO8601 date)
-renderCommitQueryOption (CommitQueryUntil date)    = ("until", Just $ TE.encodeUtf8 . T.pack $ formatISO8601 date)
+
+renderCommitQueryOption :: CommitQueryOption -> (BS.ByteString, [EscapeItem])
+renderCommitQueryOption (CommitQuerySha sha)      = ("sha", [QE $ TE.encodeUtf8 sha])
+renderCommitQueryOption (CommitQueryPath path)     = ("path", [QE $ TE.encodeUtf8 path])
+renderCommitQueryOption (CommitQueryAuthor author) = ("author", [QE $ TE.encodeUtf8 author])
+renderCommitQueryOption (CommitQuerySince date)    = ("since", [QE $ TE.encodeUtf8 . T.pack $ formatISO8601 date])
+renderCommitQueryOption (CommitQueryUntil date)    = ("until", [QE $ TE.encodeUtf8 . T.pack $ formatISO8601 date])
 
 -- | List commits on a repository.
 -- See <https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository>

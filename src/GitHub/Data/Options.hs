@@ -371,7 +371,7 @@ pullRequestOptionsToQueryString (PullRequestOptions st head_ base sort dir) =
     , mk "base" <$> base'
     ]
   where
-    mk k v = (k, Just v)
+    mk k v = (k, [QE v])
     state' = case st of
         Nothing          -> "all"
         Just StateOpen   -> "open"
@@ -468,7 +468,7 @@ issueOptionsToQueryString (IssueOptions filt st labels sort dir since) =
     , mk "since" <$> since'
     ]
   where
-    mk k v = (k, Just v)
+    mk k v = (k, [QE v])
     filt' = case filt of
         IssueFilterAssigned   -> "assigned"
         IssueFilterCreated    -> "created"
@@ -620,7 +620,7 @@ issueRepoOptionsToQueryString IssueRepoOptions {..} =
     , mk "mentioned" <$> mentioned'
     ]
   where
-    mk k v = (k, Just v)
+    mk k v = (k, [QE v])
     filt f x = case x of
         FilterAny          -> Just "*"
         FilterNone         -> Just "none"
@@ -748,7 +748,7 @@ artifactOptionsToQueryString (ArtifactOptions name) =
     [ mk "name" <$> name'
     ]
   where
-    mk k v = (k, Just v)
+    mk k v = (k, [QE v])
     name' = fmap TE.encodeUtf8 name
 
 -------------------------------------------------------------------------------
@@ -798,7 +798,7 @@ cacheOptionsToQueryString (CacheOptions ref key sort dir) =
     , mk "directions" <$> direction'
     ]
   where
-    mk k v = (k, Just v)
+    mk k v = (k, [QE v])
     sort' = sort <&> \case
         SortCacheCreatedAt      -> "created_at"
         SortCacheLastAccessedAt -> "last_accessed_at"
@@ -902,7 +902,7 @@ workflowRunOptionsToQueryString (WorkflowRunOptions actor branch event status cr
     , mk "head_sha" <$> headSha'
     ]
   where
-    mk k v = (k, Just v)
+    mk k v = (k, [QE v])
     actor'   = fmap TE.encodeUtf8 actor
     branch'  = fmap TE.encodeUtf8 branch
     event'   = fmap TE.encodeUtf8 event

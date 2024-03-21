@@ -37,7 +37,7 @@ contentsForR
 contentsForR user repo path ref =
     query ["repos", toPathPart user, toPathPart repo, "contents", path] qs
   where
-    qs =  maybe [] (\r -> [("ref", Just . TE.encodeUtf8 $ r)]) ref
+    qs =  maybe [] (\r -> [("ref", [QE . TE.encodeUtf8 $ r])]) ref
 
 readmeForR :: Name Owner -> Name Repo -> Request k Content
 readmeForR user repo =

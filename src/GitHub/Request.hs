@@ -87,7 +87,7 @@ import Data.Version               (showVersion)
 import Network.HTTP.Client
        (HttpException (..), Manager, RequestBody (..), Response (..), getUri,
        httpLbs, method, newManager, redirectCount, requestBody, requestHeaders,
-       setQueryString, setRequestIgnoreStatus)
+       setQueryStringPartialEscape, setRequestIgnoreStatus)
 import Network.HTTP.Link.Parser (parseLinkHeaderBS)
 import Network.HTTP.Link.Types  (Link(..), LinkParam (..), href, linkParams)
 import Network.HTTP.Types       (Method, RequestHeaders, Status (..))
@@ -457,7 +457,7 @@ makeHttpRequest auth r = case r of
             $ setReqHeaders
             . unTagged (modifyRequest :: Tagged mt (HTTP.Request -> HTTP.Request))
             . maybe id setAuthRequest auth
-            . setQueryString (qs <> extraQueryItems)
+            . setQueryStringPartialEscape (qs <> extraQueryItems)
             $ req
     PagedQuery paths qs _ -> do
         req <- parseUrl' $ url paths
@@ -465,7 +465,7 @@ makeHttpRequest auth r = case r of
             $ setReqHeaders
             . unTagged (modifyRequest :: Tagged mt (HTTP.Request -> HTTP.Request))
             . maybe id setAuthRequest auth
-            . setQueryString (qs <> extraQueryItems)
+            . setQueryStringPartialEscape (qs <> extraQueryItems)
             $ req
     Command m paths body -> do
         req <- parseUrl' $ url paths
@@ -497,11 +497,11 @@ makeHttpRequest auth r = case r of
     setBody :: LBS.ByteString -> HTTP.Request -> HTTP.Request
     setBody body req = req { requestBody = RequestBodyLBS body }
 
-    extraQueryItems :: [(BS.ByteString, Maybe BS.ByteString)]
+    extraQueryItems :: [(BS.ByteString, [EscapeItem])]
     extraQueryItems = case r of
       PagedQuery _ _ (FetchPage pp) -> catMaybes [
-          (\page -> ("page", Just (LBS.toStrict $ toLazyByteString $ intDec page))) <$> pageParamsPage pp
-          , (\perPage -> ("per_page", Just (LBS.toStrict $ toLazyByteString $ intDec perPage))) <$> pageParamsPerPage pp
+          (\page -> ("page", [QE (LBS.toStrict $ toLazyByteString $ intDec page)])) <$> pageParamsPage pp
+          , (\perPage -> ("per_page", [QE (LBS.toStrict $ toLazyByteString $ intDec perPage)])) <$> pageParamsPerPage pp
           ]
       _ -> []
 
