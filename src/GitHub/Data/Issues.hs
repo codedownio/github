@@ -35,7 +35,7 @@ data Issue = Issue
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Issue where rnf = genericRnf
+instance NFData Issue
 instance Binary Issue
 
 data NewIssue = NewIssue
@@ -47,7 +47,7 @@ data NewIssue = NewIssue
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewIssue where rnf = genericRnf
+instance NFData NewIssue
 instance Binary NewIssue
 
 data EditIssue = EditIssue
@@ -60,7 +60,7 @@ data EditIssue = EditIssue
     }
   deriving  (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData EditIssue where rnf = genericRnf
+instance NFData EditIssue
 instance Binary EditIssue
 
 data IssueComment = IssueComment
@@ -74,7 +74,7 @@ data IssueComment = IssueComment
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData IssueComment where rnf = genericRnf
+instance NFData IssueComment
 instance Binary IssueComment
 
 -- | See <https://developer.github.com/v3/issues/events/#events-1>
@@ -108,7 +108,7 @@ data EventType
     | ConvertedNoteToIssue  -- ^ The issue was created by converting a note in a project board to an issue.
   deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData EventType where rnf = genericRnf
+instance NFData EventType
 instance Binary EventType
 
 -- | Issue event
@@ -124,7 +124,7 @@ data IssueEvent = IssueEvent
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData IssueEvent where rnf = genericRnf
+instance NFData IssueEvent
 instance Binary IssueEvent
 
 instance FromJSON IssueEvent where

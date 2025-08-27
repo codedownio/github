@@ -100,7 +100,7 @@ instance Num FetchCount where
 
 instance Hashable FetchCount
 instance Binary FetchCount
-instance NFData FetchCount where rnf = genericRnf
+instance NFData FetchCount
 
 -------------------------------------------------------------------------------
 -- PageParams
@@ -115,7 +115,7 @@ data PageParams = PageParams {
 
 instance Hashable PageParams
 instance Binary PageParams
-instance NFData PageParams where rnf = genericRnf
+instance NFData PageParams
 
 -------------------------------------------------------------------------------
 -- PageLinks
@@ -131,7 +131,7 @@ data PageLinks = PageLinks {
     }
     deriving (Eq, Ord, Show, Generic, Typeable)
 
-instance NFData PageLinks where rnf = genericRnf
+instance NFData PageLinks
 
 -------------------------------------------------------------------------------
 -- MediaType

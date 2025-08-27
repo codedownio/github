@@ -55,7 +55,7 @@ data Repo = Repo
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Repo where rnf = genericRnf
+instance NFData Repo
 instance Binary Repo
 
 data CodeSearchRepo = CodeSearchRepo
@@ -90,7 +90,7 @@ data CodeSearchRepo = CodeSearchRepo
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData CodeSearchRepo where rnf = genericRnf
+instance NFData CodeSearchRepo
 instance Binary CodeSearchRepo
 
 -- | Repository permissions, as they relate to the authenticated user.
@@ -103,7 +103,7 @@ data RepoPermissions = RepoPermissions
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoPermissions where rnf = genericRnf
+instance NFData RepoPermissions
 instance Binary RepoPermissions
 
 data RepoRef = RepoRef
@@ -112,7 +112,7 @@ data RepoRef = RepoRef
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoRef where rnf = genericRnf
+instance NFData RepoRef
 instance Binary RepoRef
 
 data NewRepo = NewRepo
@@ -131,7 +131,7 @@ data NewRepo = NewRepo
     , newRepoAllowRebaseMerge  :: !(Maybe Bool)
     } deriving (Eq, Ord, Show, Data, Typeable, Generic)
 
-instance NFData NewRepo where rnf = genericRnf
+instance NFData NewRepo
 instance Binary NewRepo
 
 newRepo :: Name Repo -> NewRepo
@@ -153,7 +153,7 @@ data EditRepo = EditRepo
     }
     deriving (Eq, Ord, Show, Data, Typeable, Generic)
 
-instance NFData EditRepo where rnf = genericRnf
+instance NFData EditRepo
 instance Binary EditRepo
 
 -- | Filter the list of the user's repos using any of these constructors.
@@ -175,7 +175,7 @@ newtype Language = Language Text
 getLanguage :: Language -> Text
 getLanguage (Language l) = l
 
-instance NFData Language where rnf = genericRnf
+instance NFData Language
 instance Binary Language
 instance Hashable Language where
     hashWithSalt salt (Language l) = hashWithSalt salt l
@@ -190,7 +190,7 @@ data Contributor
     | AnonymousContributor !Int !Text
    deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Contributor where rnf = genericRnf
+instance NFData Contributor
 instance Binary Contributor
 
 contributorToSimpleUser :: Contributor -> Maybe SimpleUser
@@ -207,7 +207,7 @@ data CollaboratorPermission
     | CollaboratorPermissionNone
     deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData CollaboratorPermission where rnf = genericRnf
+instance NFData CollaboratorPermission
 instance Binary CollaboratorPermission
 
 -- | A collaborator and its permission on a repository.
@@ -216,7 +216,7 @@ data CollaboratorWithPermission
     = CollaboratorWithPermission SimpleUser CollaboratorPermission
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData CollaboratorWithPermission where rnf = genericRnf
+instance NFData CollaboratorWithPermission
 instance Binary CollaboratorWithPermission
 
 -- JSON instances

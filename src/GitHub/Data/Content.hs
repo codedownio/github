@@ -20,7 +20,7 @@ data Content
   | ContentDirectory !(Vector ContentItem)
  deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Content where rnf = genericRnf
+instance NFData Content
 instance Binary Content
 
 data ContentFileData = ContentFileData {
@@ -30,7 +30,7 @@ data ContentFileData = ContentFileData {
   ,contentFileContent  :: !Text
 } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ContentFileData where rnf = genericRnf
+instance NFData ContentFileData
 instance Binary ContentFileData
 
 -- | An item in a directory listing.
@@ -39,13 +39,13 @@ data ContentItem = ContentItem {
   ,contentItemInfo :: !ContentInfo
 } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ContentItem where rnf = genericRnf
+instance NFData ContentItem
 instance Binary ContentItem
 
 data ContentItemType = ItemFile | ItemDir
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ContentItemType where rnf = genericRnf
+instance NFData ContentItemType
 instance Binary ContentItemType
 
 -- | Information common to both kinds of Content: files and directories.
@@ -58,7 +58,7 @@ data ContentInfo = ContentInfo {
   ,contentHtmlUrl :: !URL
 } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ContentInfo where rnf = genericRnf
+instance NFData ContentInfo
 instance Binary ContentInfo
 
 data ContentResultInfo = ContentResultInfo
@@ -66,7 +66,7 @@ data ContentResultInfo = ContentResultInfo
     , contentResultSize :: !Int
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ContentResultInfo where rnf = genericRnf
+instance NFData ContentResultInfo
 instance Binary ContentResultInfo
 
 data ContentResult = ContentResult
@@ -74,7 +74,7 @@ data ContentResult = ContentResult
     , contentResultCommit   :: !GitCommit
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ContentResult where rnf = genericRnf
+instance NFData ContentResult
 instance Binary ContentResult
 
 data Author = Author
@@ -83,7 +83,7 @@ data Author = Author
     }
     deriving (Eq, Ord, Show, Data, Typeable, Generic)
 
-instance NFData Author where rnf = genericRnf
+instance NFData Author
 instance Binary Author
 
 data CreateFile = CreateFile
@@ -96,7 +96,7 @@ data CreateFile = CreateFile
     }
     deriving (Eq, Ord, Show, Data, Typeable, Generic)
 
-instance NFData CreateFile where rnf = genericRnf
+instance NFData CreateFile
 instance Binary CreateFile
 
 data UpdateFile = UpdateFile
@@ -110,7 +110,7 @@ data UpdateFile = UpdateFile
     }
     deriving (Eq, Ord, Show, Data, Typeable, Generic)
 
-instance NFData UpdateFile where rnf = genericRnf
+instance NFData UpdateFile
 instance Binary UpdateFile
 
 data DeleteFile = DeleteFile
@@ -123,7 +123,7 @@ data DeleteFile = DeleteFile
     }
     deriving (Eq, Ord, Show, Data, Typeable, Generic)
 
-instance NFData DeleteFile where rnf = genericRnf
+instance NFData DeleteFile
 instance Binary DeleteFile
 
 instance FromJSON Content where

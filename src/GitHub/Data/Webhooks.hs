@@ -22,7 +22,7 @@ data RepoWebhook = RepoWebhook
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoWebhook where rnf = genericRnf
+instance NFData RepoWebhook
 instance Binary RepoWebhook
 
 -- | See <https://developer.github.com/webhooks/#events>.
@@ -87,7 +87,7 @@ data RepoWebhookEvent
     | WebhookWorkflowRun
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoWebhookEvent where rnf = genericRnf
+instance NFData RepoWebhookEvent
 instance Binary RepoWebhookEvent
 
 data RepoWebhookResponse = RepoWebhookResponse
@@ -97,7 +97,7 @@ data RepoWebhookResponse = RepoWebhookResponse
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoWebhookResponse where rnf = genericRnf
+instance NFData RepoWebhookResponse
 instance Binary RepoWebhookResponse
 
 data PingEvent = PingEvent
@@ -107,7 +107,7 @@ data PingEvent = PingEvent
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PingEvent where rnf = genericRnf
+instance NFData PingEvent
 instance Binary PingEvent
 
 data NewRepoWebhook = NewRepoWebhook
@@ -118,7 +118,7 @@ data NewRepoWebhook = NewRepoWebhook
     }
   deriving (Eq, Ord, Show, Typeable, Data, Generic)
 
-instance NFData NewRepoWebhook where rnf = genericRnf
+instance NFData NewRepoWebhook
 instance Binary NewRepoWebhook
 
 data EditRepoWebhook = EditRepoWebhook
@@ -130,7 +130,7 @@ data EditRepoWebhook = EditRepoWebhook
     }
   deriving (Eq, Ord, Show, Typeable, Data, Generic)
 
-instance NFData EditRepoWebhook where rnf = genericRnf
+instance NFData EditRepoWebhook
 instance Binary EditRepoWebhook
 
 -- JSON instances

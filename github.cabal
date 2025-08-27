@@ -203,7 +203,6 @@ library
     , base16-bytestring     >=0.1.1.6    && <1.1
     , binary-instances      >=1          && <1.1
     , cryptohash-sha1       >=0.11.100.1 && <0.12
-    , deepseq-generics      >=0.2.0.0    && <0.3
     , hashable              >=1.2.7.0    && <2
     , http-client           >=0.5.12     && <0.8
     , http-link-header      >=1.0.3.1    && <1.3

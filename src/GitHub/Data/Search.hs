@@ -15,7 +15,7 @@ data SearchResult' entities = SearchResult
 
 type SearchResult entity = SearchResult' (V.Vector entity)
 
-instance NFData entities => NFData (SearchResult' entities) where rnf = genericRnf
+instance NFData entities => NFData (SearchResult' entities)
 instance Binary entities => Binary (SearchResult' entities)
 
 instance (Monoid entities, FromJSON entities) => FromJSON (SearchResult' entities) where
@@ -40,7 +40,7 @@ data Code = Code
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Code where rnf = genericRnf
+instance NFData Code
 instance Binary Code
 
 instance FromJSON Code where

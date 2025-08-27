@@ -23,7 +23,7 @@ data StatusState
     | StatusFailure
   deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData StatusState where rnf = genericRnf
+instance NFData StatusState
 instance Binary StatusState
 
 instance FromJSON StatusState where
@@ -75,7 +75,7 @@ data NewStatus = NewStatus
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewStatus where rnf = genericRnf
+instance NFData NewStatus
 instance Binary NewStatus
 
 instance ToJSON NewStatus where

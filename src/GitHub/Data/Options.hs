@@ -116,7 +116,7 @@ instance FromJSON IssueState where
         "closed" -> pure StateClosed
         _        -> fail $ "Unknown IssueState: " <> T.unpack t
 
-instance NFData IssueState where rnf = genericRnf
+instance NFData IssueState
 instance Binary IssueState
 
 -- | 'GitHub.Data.Issues.Issue' state reason
@@ -143,7 +143,7 @@ instance FromJSON IssueStateReason where
         "reopened"    -> pure StateReasonReopened
         _ -> fail $ "Unknown IssueStateReason: " <> T.unpack t
 
-instance NFData IssueStateReason where rnf = genericRnf
+instance NFData IssueStateReason
 instance Binary IssueStateReason
 
 -- | 'GitHub.Data.PullRequests.PullRequest' mergeable_state
@@ -178,7 +178,7 @@ instance FromJSON MergeableState where
         "draft"    -> pure StateDraft
         _          -> fail $ "Unknown MergeableState: " <> T.unpack t
 
-instance NFData MergeableState where rnf = genericRnf
+instance NFData MergeableState
 instance Binary MergeableState
 
 data SortDirection
@@ -187,7 +187,7 @@ data SortDirection
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData SortDirection where rnf = genericRnf
+instance NFData SortDirection
 instance Binary SortDirection
 
 -- PR
@@ -200,7 +200,7 @@ data SortPR
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData SortPR where rnf = genericRnf
+instance NFData SortPR
 instance Binary SortPR
 
 -- Issue
@@ -213,7 +213,7 @@ data IssueFilter
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData IssueFilter where rnf = genericRnf
+instance NFData IssueFilter
 instance Binary IssueFilter
 
 data SortIssue
@@ -223,7 +223,7 @@ data SortIssue
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData SortIssue where rnf = genericRnf
+instance NFData SortIssue
 instance Binary SortIssue
 
 data FilterBy a
@@ -245,7 +245,7 @@ data SortCache
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData SortCache where rnf = genericRnf
+instance NFData SortCache
 instance Binary SortCache
 
 -------------------------------------------------------------------------------

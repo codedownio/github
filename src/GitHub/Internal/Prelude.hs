@@ -7,7 +7,6 @@ module GitHub.Internal.Prelude ( module X ) where
 
 import Control.Applicative      as X ((<|>))
 import Control.DeepSeq          as X (NFData (..))
-import Control.DeepSeq.Generics as X (genericRnf)
 import Data.Aeson               as X
        (FromJSON (..), Object, ToJSON (..), Value (..), encode, object,
        withObject, withText, (.!=), (.:), (.:?), (.=))

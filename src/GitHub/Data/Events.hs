@@ -18,7 +18,7 @@ data Event = Event
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Event where rnf = genericRnf
+instance NFData Event
 instance Binary Event
 
 instance FromJSON Event where

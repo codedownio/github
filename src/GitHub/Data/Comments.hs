@@ -21,7 +21,7 @@ data Comment = Comment
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Comment where rnf = genericRnf
+instance NFData Comment
 instance Binary Comment
 
 instance FromJSON Comment where
@@ -43,7 +43,7 @@ data NewComment = NewComment
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewComment where rnf = genericRnf
+instance NFData NewComment
 instance Binary NewComment
 
 instance ToJSON NewComment where
@@ -54,7 +54,7 @@ data EditComment = EditComment
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData EditComment where rnf = genericRnf
+instance NFData EditComment
 instance Binary EditComment
 
 instance ToJSON EditComment where
@@ -68,7 +68,7 @@ data NewPullComment = NewPullComment
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewPullComment where rnf = genericRnf
+instance NFData NewPullComment
 instance Binary NewPullComment
 
 instance ToJSON NewPullComment where
@@ -84,7 +84,7 @@ data PullCommentReply = PullCommentReply
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PullCommentReply where rnf = genericRnf
+instance NFData PullCommentReply
 
 instance ToJSON PullCommentReply where
     toJSON (PullCommentReply b) =

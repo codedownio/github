@@ -15,7 +15,7 @@ data Reaction = Reaction
   }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Reaction where rnf = genericRnf
+instance NFData Reaction
 instance Binary Reaction
 
 data NewReaction = NewReaction
@@ -23,7 +23,7 @@ data NewReaction = NewReaction
   }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewReaction where rnf = genericRnf
+instance NFData NewReaction
 instance Binary NewReaction
 
 -- |
@@ -39,7 +39,7 @@ data ReactionContent
   | Eyes
   deriving (Show, Data, Typeable, Eq, Ord, Enum, Bounded, Generic)
 
-instance NFData ReactionContent where rnf = genericRnf
+instance NFData ReactionContent
 instance Binary ReactionContent
 
 -- JSON instances

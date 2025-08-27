@@ -24,7 +24,7 @@ data Stats = Stats
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Stats where rnf = genericRnf
+instance NFData Stats
 instance Binary Stats
 
 data Commit = Commit
@@ -39,7 +39,7 @@ data Commit = Commit
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Commit where rnf = genericRnf
+instance NFData Commit
 instance Binary Commit
 
 data Tree = Tree
@@ -49,7 +49,7 @@ data Tree = Tree
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Tree where rnf = genericRnf
+instance NFData Tree
 instance Binary Tree
 
 data GitTree = GitTree
@@ -63,7 +63,7 @@ data GitTree = GitTree
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData GitTree where rnf = genericRnf
+instance NFData GitTree
 instance Binary GitTree
 
 data GitCommit = GitCommit
@@ -77,7 +77,7 @@ data GitCommit = GitCommit
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData GitCommit where rnf = genericRnf
+instance NFData GitCommit
 instance Binary GitCommit
 
 data Blob = Blob
@@ -89,7 +89,7 @@ data Blob = Blob
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Blob where rnf = genericRnf
+instance NFData Blob
 instance Binary Blob
 
 data Tag = Tag
@@ -100,7 +100,7 @@ data Tag = Tag
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Tag where rnf = genericRnf
+instance NFData Tag
 instance Binary Tag
 
 data Branch = Branch
@@ -109,7 +109,7 @@ data Branch = Branch
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Branch where rnf = genericRnf
+instance NFData Branch
 
 data BranchCommit = BranchCommit
     { branchCommitSha :: !Text
@@ -117,7 +117,7 @@ data BranchCommit = BranchCommit
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData BranchCommit where rnf = genericRnf
+instance NFData BranchCommit
 instance Binary BranchCommit
 
 data Diff = Diff
@@ -136,7 +136,7 @@ data Diff = Diff
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Diff where rnf = genericRnf
+instance NFData Diff
 instance Binary Diff
 
 data NewGitReference = NewGitReference
@@ -145,7 +145,7 @@ data NewGitReference = NewGitReference
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewGitReference where rnf = genericRnf
+instance NFData NewGitReference
 instance Binary NewGitReference
 
 data GitReference = GitReference
@@ -155,7 +155,7 @@ data GitReference = GitReference
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData GitReference where rnf = genericRnf
+instance NFData GitReference
 instance Binary GitReference
 
 data GitObject = GitObject
@@ -165,7 +165,7 @@ data GitObject = GitObject
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData GitObject where rnf = genericRnf
+instance NFData GitObject
 instance Binary GitObject
 
 data GitUser = GitUser
@@ -175,7 +175,7 @@ data GitUser = GitUser
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData GitUser where rnf = genericRnf
+instance NFData GitUser
 instance Binary GitUser
 
 data File = File
@@ -191,7 +191,7 @@ data File = File
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData File where rnf = genericRnf
+instance NFData File
 instance Binary File
 
 -- JSON instances

@@ -16,9 +16,7 @@ data ReviewState
     | ReviewStateChangesRequested
     deriving (Show, Enum, Bounded, Eq, Ord, Generic)
 
-instance NFData ReviewState where
-    rnf = genericRnf
-
+instance NFData ReviewState
 instance Binary ReviewState
 
 instance FromJSON ReviewState where
@@ -41,9 +39,7 @@ data Review = Review
     , reviewId :: !(Id Review)
     } deriving (Show, Generic)
 
-instance NFData Review where
-    rnf = genericRnf
-
+instance NFData Review
 instance Binary Review
 
 instance FromJSON Review where
@@ -74,9 +70,7 @@ data ReviewComment = ReviewComment
     , reviewCommentPullRequestUrl :: !URL
     } deriving (Show, Generic)
 
-instance NFData ReviewComment where
-    rnf = genericRnf
-
+instance NFData ReviewComment
 instance Binary ReviewComment
 
 instance FromJSON ReviewComment where

@@ -20,7 +20,7 @@ data Milestone = Milestone
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Milestone where rnf = genericRnf
+instance NFData Milestone
 instance Binary Milestone
 
 instance FromJSON Milestone where
@@ -44,7 +44,7 @@ data NewMilestone = NewMilestone
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewMilestone where rnf = genericRnf
+instance NFData NewMilestone
 instance Binary NewMilestone
 
 
@@ -67,7 +67,7 @@ data UpdateMilestone = UpdateMilestone
   }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData UpdateMilestone where rnf = genericRnf
+instance NFData UpdateMilestone
 instance Binary UpdateMilestone
 
 

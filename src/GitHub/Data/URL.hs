@@ -15,7 +15,7 @@ newtype URL = URL Text
 getUrl :: URL -> Text
 getUrl (URL url) = url
 
-instance NFData URL where rnf = genericRnf
+instance NFData URL
 instance Binary URL
 
 instance ToJSON URL where

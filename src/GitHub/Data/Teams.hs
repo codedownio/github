@@ -20,7 +20,7 @@ data Privacy
     | PrivacySecret
     deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData Privacy where rnf = genericRnf
+instance NFData Privacy
 instance Binary Privacy
 
 data Permission
@@ -29,7 +29,7 @@ data Permission
     | PermissionAdmin
     deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData Permission where rnf = genericRnf
+instance NFData Permission
 instance Binary Permission
 
 data AddTeamRepoPermission = AddTeamRepoPermission
@@ -37,7 +37,7 @@ data AddTeamRepoPermission = AddTeamRepoPermission
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData AddTeamRepoPermission where rnf = genericRnf
+instance NFData AddTeamRepoPermission
 instance Binary AddTeamRepoPermission
 
 data SimpleTeam = SimpleTeam
@@ -53,7 +53,7 @@ data SimpleTeam = SimpleTeam
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData SimpleTeam where rnf = genericRnf
+instance NFData SimpleTeam
 instance Binary SimpleTeam
 
 data Team = Team
@@ -72,7 +72,7 @@ data Team = Team
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Team where rnf = genericRnf
+instance NFData Team
 instance Binary Team
 
 data CreateTeam = CreateTeam
@@ -84,7 +84,7 @@ data CreateTeam = CreateTeam
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData CreateTeam where rnf = genericRnf
+instance NFData CreateTeam
 instance Binary CreateTeam
 
 data EditTeam = EditTeam
@@ -95,7 +95,7 @@ data EditTeam = EditTeam
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData EditTeam where rnf = genericRnf
+instance NFData EditTeam
 instance Binary  EditTeam
 
 data Role
@@ -111,7 +111,7 @@ data ReqState
     | StateActive
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData ReqState where rnf = genericRnf
+instance NFData ReqState
 instance Binary ReqState
 
 data TeamMembership = TeamMembership
@@ -121,14 +121,14 @@ data TeamMembership = TeamMembership
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData TeamMembership where rnf = genericRnf
+instance NFData TeamMembership
 instance Binary TeamMembership
 
 data CreateTeamMembership = CreateTeamMembership {
   createTeamMembershipRole :: !Role
 } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData CreateTeamMembership where rnf = genericRnf
+instance NFData CreateTeamMembership
 instance Binary CreateTeamMembership
 
 -- JSON Instances

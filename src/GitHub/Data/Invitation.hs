@@ -21,7 +21,7 @@ data Invitation = Invitation
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Invitation where rnf = genericRnf
+instance NFData Invitation
 instance Binary Invitation
 
 instance FromJSON Invitation where
@@ -43,7 +43,7 @@ data InvitationRole
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData InvitationRole where rnf = genericRnf
+instance NFData InvitationRole
 instance Binary InvitationRole
 
 instance FromJSON InvitationRole where
@@ -67,7 +67,7 @@ data RepoInvitation = RepoInvitation
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoInvitation where rnf = genericRnf
+instance NFData RepoInvitation
 instance Binary RepoInvitation
 
 instance FromJSON RepoInvitation where

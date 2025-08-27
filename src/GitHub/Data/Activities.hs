@@ -15,7 +15,7 @@ data RepoStarred = RepoStarred
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RepoStarred where rnf = genericRnf
+instance NFData RepoStarred
 instance Binary RepoStarred
 
 -- JSON Instances
@@ -35,7 +35,7 @@ data Subject = Subject
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Subject where rnf = genericRnf
+instance NFData Subject
 instance Binary Subject
 
 instance FromJSON Subject where
@@ -63,7 +63,7 @@ data NotificationReason
     | TeamMentionReason
   deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData NotificationReason where rnf = genericRnf
+instance NFData NotificationReason
 instance Binary NotificationReason
 
 instance FromJSON NotificationReason where
@@ -99,7 +99,7 @@ data Notification = Notification
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Notification where rnf = genericRnf
+instance NFData Notification
 instance Binary Notification
 
 instance FromJSON Notification where

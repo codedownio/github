@@ -23,7 +23,7 @@ data Gist = Gist
     , gistGitPullUrl  :: !URL
     } deriving (Show, Data, Typeable, Eq, Generic)
 
-instance NFData Gist where rnf = genericRnf
+instance NFData Gist
 instance Binary Gist
 
 instance FromJSON Gist where
@@ -51,7 +51,7 @@ data GistFile = GistFile
     }
   deriving (Show, Data, Typeable, Eq, Generic)
 
-instance NFData GistFile where rnf = genericRnf
+instance NFData GistFile
 instance Binary GistFile
 
 instance FromJSON GistFile where
@@ -73,7 +73,7 @@ data GistComment = GistComment
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData GistComment where rnf = genericRnf
+instance NFData GistComment
 instance Binary GistComment
 
 instance FromJSON GistComment where
@@ -91,7 +91,7 @@ data NewGist = NewGist
     , newGistPublic      :: !(Maybe Bool)
     } deriving (Show, Data, Typeable, Eq, Generic)
 
-instance NFData NewGist where rnf = genericRnf
+instance NFData NewGist
 instance Binary NewGist
 
 instance ToJSON NewGist where
@@ -111,7 +111,7 @@ data NewGistFile = NewGistFile
     { newGistFileContent :: !Text
     } deriving (Show, Data, Typeable, Eq, Generic)
 
-instance NFData NewGistFile where rnf = genericRnf
+instance NFData NewGistFile
 instance Binary NewGistFile
 
 instance ToJSON NewGistFile where

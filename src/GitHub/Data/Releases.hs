@@ -47,7 +47,7 @@ instance FromJSON Release where
         <*> o .: "author"
         <*> o .: "assets"
 
-instance NFData Release where rnf = genericRnf
+instance NFData Release
 instance Binary Release
 
 data ReleaseAsset = ReleaseAsset
@@ -81,5 +81,5 @@ instance FromJSON ReleaseAsset where
         <*> o .: "updated_at"
         <*> o .: "uploader"
 
-instance NFData ReleaseAsset where rnf = genericRnf
+instance NFData ReleaseAsset
 instance Binary ReleaseAsset

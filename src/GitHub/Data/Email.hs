@@ -10,7 +10,7 @@ data EmailVisibility
     | EmailVisibilityPublic
     deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
 
-instance NFData EmailVisibility where rnf = genericRnf
+instance NFData EmailVisibility
 instance Binary EmailVisibility
 
 instance FromJSON EmailVisibility where
@@ -26,7 +26,7 @@ data Email = Email
     , emailVisibility :: !(Maybe EmailVisibility)
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Email where rnf = genericRnf
+instance NFData Email
 instance Binary Email
 
 instance FromJSON Email where

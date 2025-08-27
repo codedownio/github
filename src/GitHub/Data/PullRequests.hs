@@ -45,7 +45,7 @@ data SimplePullRequest = SimplePullRequest
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData SimplePullRequest where rnf = genericRnf
+instance NFData SimplePullRequest
 instance Binary SimplePullRequest
 
 data PullRequest = PullRequest
@@ -83,7 +83,7 @@ data PullRequest = PullRequest
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PullRequest where rnf = genericRnf
+instance NFData PullRequest
 instance Binary PullRequest
 
 data EditPullRequest = EditPullRequest
@@ -96,7 +96,7 @@ data EditPullRequest = EditPullRequest
     }
   deriving (Show, Generic)
 
-instance NFData EditPullRequest where rnf = genericRnf
+instance NFData EditPullRequest
 instance Binary EditPullRequest
 
 data CreatePullRequest
@@ -113,7 +113,7 @@ data CreatePullRequest
       }
   deriving (Show, Generic)
 
-instance NFData CreatePullRequest where rnf = genericRnf
+instance NFData CreatePullRequest
 instance Binary CreatePullRequest
 
 data PullRequestLinks = PullRequestLinks
@@ -124,7 +124,7 @@ data PullRequestLinks = PullRequestLinks
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PullRequestLinks where rnf = genericRnf
+instance NFData PullRequestLinks
 instance Binary PullRequestLinks
 
 data PullRequestCommit = PullRequestCommit
@@ -136,7 +136,7 @@ data PullRequestCommit = PullRequestCommit
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PullRequestCommit where rnf = genericRnf
+instance NFData PullRequestCommit
 instance Binary PullRequestCommit
 
 data PullRequestEvent = PullRequestEvent
@@ -148,7 +148,7 @@ data PullRequestEvent = PullRequestEvent
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PullRequestEvent where rnf = genericRnf
+instance NFData PullRequestEvent
 instance Binary PullRequestEvent
 
 data PullRequestEventType
@@ -165,7 +165,7 @@ data PullRequestEventType
     | PullRequestEdited
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData PullRequestEventType where rnf = genericRnf
+instance NFData PullRequestEventType
 instance Binary PullRequestEventType
 
 data PullRequestReference = PullRequestReference
@@ -175,7 +175,7 @@ data PullRequestReference = PullRequestReference
     }
     deriving (Eq, Ord, Show, Generic, Typeable, Data)
 
-instance NFData PullRequestReference where rnf = genericRnf
+instance NFData PullRequestReference
 instance Binary PullRequestReference
 
 

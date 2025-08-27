@@ -41,7 +41,7 @@ data SimpleUser = SimpleUser
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData SimpleUser where rnf = genericRnf
+instance NFData SimpleUser
 instance Binary SimpleUser
 
 data SimpleOrganization = SimpleOrganization
@@ -52,7 +52,7 @@ data SimpleOrganization = SimpleOrganization
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData SimpleOrganization where rnf = genericRnf
+instance NFData SimpleOrganization
 instance Binary SimpleOrganization
 
 -- | Sometimes we don't know the type of the owner, e.g. in 'Repo'
@@ -65,7 +65,7 @@ data SimpleOwner = SimpleOwner
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData SimpleOwner where rnf = genericRnf
+instance NFData SimpleOwner
 instance Binary SimpleOwner
 
 data User = User
@@ -90,7 +90,7 @@ data User = User
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData User where rnf = genericRnf
+instance NFData User
 instance Binary User
 
 data Organization = Organization
@@ -113,14 +113,14 @@ data Organization = Organization
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Organization where rnf = genericRnf
+instance NFData Organization
 instance Binary Organization
 
 -- | In practice you can't have concrete values of 'Owner'.
 newtype Owner = Owner (Either User Organization)
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Owner where rnf = genericRnf
+instance NFData Owner
 instance Binary Owner
 
 fromOwner :: Owner -> Either User Organization
@@ -242,7 +242,7 @@ data MembershipRole
   deriving
     (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
 
-instance NFData MembershipRole where rnf = genericRnf
+instance NFData MembershipRole
 instance Binary MembershipRole
 
 instance FromJSON MembershipRole where
@@ -257,7 +257,7 @@ data MembershipState
     | MembershipActive
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData MembershipState where rnf = genericRnf
+instance NFData MembershipState
 instance Binary MembershipState
 
 instance FromJSON MembershipState where
@@ -277,7 +277,7 @@ data Membership = Membership
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Membership where rnf = genericRnf
+instance NFData Membership
 instance Binary Membership
 
 instance FromJSON Membership where
@@ -324,7 +324,7 @@ data IssueLabel = IssueLabel
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData IssueLabel where rnf = genericRnf
+instance NFData IssueLabel
 instance Binary IssueLabel
 
 instance FromJSON IssueLabel where
@@ -346,7 +346,7 @@ data NewIssueLabel = NewIssueLabel
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData NewIssueLabel where rnf = genericRnf
+instance NFData NewIssueLabel
 instance Binary NewIssueLabel
 
 
@@ -373,7 +373,7 @@ data UpdateIssueLabel = UpdateIssueLabel
     }
   deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData UpdateIssueLabel where rnf = genericRnf
+instance NFData UpdateIssueLabel
 instance Binary UpdateIssueLabel
 
 

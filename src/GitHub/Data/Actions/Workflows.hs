@@ -33,7 +33,7 @@ data CreateWorkflowDispatchEvent a = CreateWorkflowDispatchEvent
     }
   deriving (Show, Generic)
 
-instance (NFData a) => NFData (CreateWorkflowDispatchEvent a) where rnf = genericRnf
+instance (NFData a) => NFData (CreateWorkflowDispatchEvent a)
 instance (Binary a) => Binary (CreateWorkflowDispatchEvent a)
 
 -------------------------------------------------------------------------------

@@ -15,7 +15,7 @@ data Limits = Limits
     }
   deriving (Show, {- Data, -} Typeable, Eq, Ord, Generic)
 
-instance NFData Limits where rnf = genericRnf
+instance NFData Limits
 instance Binary Limits
 
 instance FromJSON Limits where
@@ -31,7 +31,7 @@ data RateLimit = RateLimit
     }
   deriving (Show, {- Data, -} Typeable, Eq, Ord, Generic)
 
-instance NFData RateLimit where rnf = genericRnf
+instance NFData RateLimit
 instance Binary RateLimit
 
 instance FromJSON RateLimit where

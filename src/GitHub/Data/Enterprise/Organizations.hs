@@ -13,7 +13,7 @@ data CreateOrganization = CreateOrganization
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData CreateOrganization where rnf = genericRnf
+instance NFData CreateOrganization
 instance Binary CreateOrganization
 
 data RenameOrganization = RenameOrganization
@@ -21,7 +21,7 @@ data RenameOrganization = RenameOrganization
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RenameOrganization where rnf = genericRnf
+instance NFData RenameOrganization
 instance Binary RenameOrganization
 
 data RenameOrganizationResponse = RenameOrganizationResponse
@@ -30,7 +30,7 @@ data RenameOrganizationResponse = RenameOrganizationResponse
     }
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData RenameOrganizationResponse where rnf = genericRnf
+instance NFData RenameOrganizationResponse
 instance Binary RenameOrganizationResponse
 
 -- JSON Instances

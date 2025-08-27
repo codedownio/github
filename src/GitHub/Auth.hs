@@ -25,7 +25,7 @@ data Auth
     | EnterpriseOAuth Text Token             -- ^ Custom endpoint and OAuth token
     deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData Auth where rnf = genericRnf
+instance NFData Auth
 instance Binary Auth
 instance Hashable Auth
 

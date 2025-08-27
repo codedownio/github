@@ -36,7 +36,7 @@ data DeploymentQueryOption
     | DeploymentQueryEnvironment !Text
       deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData DeploymentQueryOption where rnf = genericRnf
+instance NFData DeploymentQueryOption
 instance Binary DeploymentQueryOption
 
 renderDeploymentQueryOption :: DeploymentQueryOption -> (ByteString, ByteString)
@@ -63,7 +63,7 @@ data Deployment a = Deployment
     , deploymentRepositoryUrl :: !URL
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData a => NFData (Deployment a) where rnf = genericRnf
+instance NFData a => NFData (Deployment a)
 instance Binary a => Binary (Deployment a)
 
 instance FromJSON a => FromJSON (Deployment a) where
@@ -106,7 +106,7 @@ data CreateDeployment a = CreateDeployment
     -- ^ Short description of the deployment. Default: ""
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData a => NFData (CreateDeployment a) where rnf = genericRnf
+instance NFData a => NFData (CreateDeployment a)
 instance Binary a => Binary (CreateDeployment a)
 
 instance ToJSON a => ToJSON (CreateDeployment a) where
@@ -134,7 +134,7 @@ data DeploymentStatus = DeploymentStatus
     , deploymentStatusRepositoryUrl :: !URL
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData DeploymentStatus where rnf = genericRnf
+instance NFData DeploymentStatus
 instance Binary DeploymentStatus
 
 instance FromJSON DeploymentStatus where
@@ -159,7 +159,7 @@ data DeploymentStatusState
     | DeploymentStatusInactive
       deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData DeploymentStatusState where rnf = genericRnf
+instance NFData DeploymentStatusState
 instance Binary DeploymentStatusState
 
 instance ToJSON DeploymentStatusState where
@@ -192,7 +192,7 @@ data CreateDeploymentStatus = CreateDeploymentStatus
     -- Default: ""
     } deriving (Show, Data, Typeable, Eq, Ord, Generic)
 
-instance NFData CreateDeploymentStatus where rnf = genericRnf
+instance NFData CreateDeploymentStatus
 instance Binary CreateDeploymentStatus
 
 instance ToJSON CreateDeploymentStatus where
