@@ -1,4 +1,10 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedStrings #-}
+
+#if __GLASGOW_HASKELL__ >= 900
+{-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
+#endif
+
 module GitHub.ReposSpec where
 
 import GitHub
