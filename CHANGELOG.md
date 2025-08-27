@@ -1,3 +1,12 @@
+## Changes for 0.30.0.1
+
+_2025-08-27, Andreas Abel_
+
+- Drop dependencies `deepseq-generics` and `transformers-compat`.
+- Remove obsolete `deriving Typeable`.
+
+Tested with GHC 8.2 - 9.14 alpha1.
+
 ## Changes for 0.30
 
 _2025-05-09, Andreas Abel, Peace edition_
