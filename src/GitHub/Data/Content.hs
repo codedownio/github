@@ -18,7 +18,7 @@ import Data.Aeson (Key)
 data Content
   = ContentFile !ContentFileData
   | ContentDirectory !(Vector ContentItem)
- deriving (Show, Data, Typeable, Eq, Ord, Generic)
+ deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Content
 instance Binary Content
@@ -28,7 +28,7 @@ data ContentFileData = ContentFileData {
   ,contentFileEncoding :: !Text
   ,contentFileSize     :: !Int
   ,contentFileContent  :: !Text
-} deriving (Show, Data, Typeable, Eq, Ord, Generic)
+} deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ContentFileData
 instance Binary ContentFileData
@@ -37,13 +37,13 @@ instance Binary ContentFileData
 data ContentItem = ContentItem {
    contentItemType :: !ContentItemType
   ,contentItemInfo :: !ContentInfo
-} deriving (Show, Data, Typeable, Eq, Ord, Generic)
+} deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ContentItem
 instance Binary ContentItem
 
 data ContentItemType = ItemFile | ItemDir
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ContentItemType
 instance Binary ContentItemType
@@ -56,7 +56,7 @@ data ContentInfo = ContentInfo {
   ,contentUrl     :: !URL
   ,contentGitUrl  :: !URL
   ,contentHtmlUrl :: !URL
-} deriving (Show, Data, Typeable, Eq, Ord, Generic)
+} deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ContentInfo
 instance Binary ContentInfo
@@ -64,7 +64,7 @@ instance Binary ContentInfo
 data ContentResultInfo = ContentResultInfo
     { contentResultInfo :: !ContentInfo
     , contentResultSize :: !Int
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ContentResultInfo
 instance Binary ContentResultInfo
@@ -72,7 +72,7 @@ instance Binary ContentResultInfo
 data ContentResult = ContentResult
     { contentResultContent  :: !ContentResultInfo
     , contentResultCommit   :: !GitCommit
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ContentResult
 instance Binary ContentResult
@@ -81,7 +81,7 @@ data Author = Author
     { authorName  :: !Text
     , authorEmail :: !Text
     }
-    deriving (Eq, Ord, Show, Data, Typeable, Generic)
+    deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData Author
 instance Binary Author
@@ -94,7 +94,7 @@ data CreateFile = CreateFile
     , createFileAuthor    :: !(Maybe Author)
     , createFileCommitter :: !(Maybe Author)
     }
-    deriving (Eq, Ord, Show, Data, Typeable, Generic)
+    deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData CreateFile
 instance Binary CreateFile
@@ -108,7 +108,7 @@ data UpdateFile = UpdateFile
     , updateFileAuthor    :: !(Maybe Author)
     , updateFileCommitter :: !(Maybe Author)
     }
-    deriving (Eq, Ord, Show, Data, Typeable, Generic)
+    deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData UpdateFile
 instance Binary UpdateFile
@@ -121,7 +121,7 @@ data DeleteFile = DeleteFile
     , deleteFileAuthor    :: !(Maybe Author)
     , deleteFileCommitter :: !(Maybe Author)
     }
-    deriving (Eq, Ord, Show, Data, Typeable, Generic)
+    deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData DeleteFile
 instance Binary DeleteFile

@@ -43,7 +43,7 @@ data SimplePullRequest = SimplePullRequest
     , simplePullRequestTitle              :: !Text
     , simplePullRequestId                 :: !(Id PullRequest)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData SimplePullRequest
 instance Binary SimplePullRequest
@@ -81,7 +81,7 @@ data PullRequest = PullRequest
     , pullRequestMergeable            :: !(Maybe Bool)
     , pullRequestMergeableState       :: !MergeableState
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PullRequest
 instance Binary PullRequest
@@ -122,7 +122,7 @@ data PullRequestLinks = PullRequestLinks
     , pullRequestLinksHtml           :: !URL
     , pullRequestLinksSelf           :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PullRequestLinks
 instance Binary PullRequestLinks
@@ -134,7 +134,7 @@ data PullRequestCommit = PullRequestCommit
     , pullRequestCommitUser  :: !SimpleUser
     , pullRequestCommitRepo  :: !(Maybe Repo)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PullRequestCommit
 instance Binary PullRequestCommit
@@ -146,7 +146,7 @@ data PullRequestEvent = PullRequestEvent
     , pullRequestRepository       :: !Repo
     , pullRequestSender           :: !SimpleUser
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PullRequestEvent
 instance Binary PullRequestEvent
@@ -163,7 +163,7 @@ data PullRequestEventType
     | PullRequestReviewRequested
     | PullRequestReviewRequestRemoved
     | PullRequestEdited
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PullRequestEventType
 instance Binary PullRequestEventType
@@ -173,7 +173,7 @@ data PullRequestReference = PullRequestReference
     , pullRequestReferencePatchUrl :: !(Maybe URL)
     , pullRequestReferenceDiffUrl  :: !(Maybe URL)
     }
-    deriving (Eq, Ord, Show, Generic, Typeable, Data)
+    deriving (Eq, Ord, Show, Generic, Data)
 
 instance NFData PullRequestReference
 instance Binary PullRequestReference
@@ -316,4 +316,4 @@ data MergeResult
     = MergeSuccessful
     | MergeCannotPerform
     | MergeConflict
-  deriving (Eq, Ord, Read, Show, Enum, Bounded, Generic, Typeable)
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Generic)

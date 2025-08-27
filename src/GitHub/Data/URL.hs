@@ -10,7 +10,7 @@ import Prelude ()
 --
 -- /N.B./ syntactical validity is not verified.
 newtype URL = URL Text
-    deriving (Eq, Ord, Show, Generic, Typeable, Data)
+    deriving (Eq, Ord, Show, Generic, Data)
 
 getUrl :: URL -> Text
 getUrl (URL url) = url

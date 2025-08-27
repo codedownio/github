@@ -33,7 +33,7 @@ data Issue = Issue
     , issueMilestone   :: !(Maybe Milestone)
     , issueStateReason :: !(Maybe IssueStateReason)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Issue
 instance Binary Issue
@@ -45,7 +45,7 @@ data NewIssue = NewIssue
     , newIssueMilestone :: !(Maybe (Id Milestone))
     , newIssueLabels    :: !(Maybe (Vector (Name IssueLabel)))
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewIssue
 instance Binary NewIssue
@@ -58,7 +58,7 @@ data EditIssue = EditIssue
     , editIssueMilestone :: !(Maybe (Id Milestone))
     , editIssueLabels    :: !(Maybe (Vector (Name IssueLabel)))
     }
-  deriving  (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving  (Show, Data, Eq, Ord, Generic)
 
 instance NFData EditIssue
 instance Binary EditIssue
@@ -72,7 +72,7 @@ data IssueComment = IssueComment
     , issueCommentBody      :: !Text
     , issueCommentId        :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData IssueComment
 instance Binary IssueComment
@@ -106,7 +106,7 @@ data EventType
     | MovedColumnsInProject -- ^ The issue was moved between columns in a project board.
     | RemovedFromProject    -- ^ The issue was removed from a project board.
     | ConvertedNoteToIssue  -- ^ The issue was created by converting a note in a project board to an issue.
-  deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData EventType
 instance Binary EventType
@@ -122,7 +122,7 @@ data IssueEvent = IssueEvent
     , issueEventIssue     :: !(Maybe Issue)
     , issueEventLabel     :: !(Maybe IssueLabel)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData IssueEvent
 instance Binary IssueEvent

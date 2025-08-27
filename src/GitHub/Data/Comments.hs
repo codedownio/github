@@ -19,7 +19,7 @@ data Comment = Comment
     , commentUser      :: !SimpleUser
     , commentId        :: !(Id Comment)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Comment
 instance Binary Comment
@@ -41,7 +41,7 @@ instance FromJSON Comment where
 data NewComment = NewComment
     { newCommentBody :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewComment
 instance Binary NewComment
@@ -52,7 +52,7 @@ instance ToJSON NewComment where
 data EditComment = EditComment
     { editCommentBody :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData EditComment
 instance Binary EditComment
@@ -66,7 +66,7 @@ data NewPullComment = NewPullComment
     , newPullCommentPosition :: !Int
     , newPullCommentBody     :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewPullComment
 instance Binary NewPullComment
@@ -82,7 +82,7 @@ instance ToJSON NewPullComment where
 data PullCommentReply = PullCommentReply
     { pullCommentReplyBody     :: Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PullCommentReply
 

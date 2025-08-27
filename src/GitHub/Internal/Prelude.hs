@@ -13,7 +13,7 @@ import Data.Aeson               as X
 import Data.Aeson.Types         as X (emptyObject, typeMismatch)
 import Data.Binary              as X (Binary)
 import Data.Binary.Instances    as X ()
-import Data.Data                as X (Data, Typeable)
+import Data.Data                as X (Data)
 import Data.Foldable            as X (toList)
 import Data.Hashable            as X (Hashable (..))
 import Data.HashMap.Strict      as X (HashMap)

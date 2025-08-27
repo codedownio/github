@@ -13,7 +13,7 @@ data Reaction = Reaction
   , reactionContent :: !ReactionContent
   , reactionCreatedAt :: !UTCTime
   }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Reaction
 instance Binary Reaction
@@ -21,7 +21,7 @@ instance Binary Reaction
 data NewReaction = NewReaction
   { newReactionContent :: !ReactionContent
   }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewReaction
 instance Binary NewReaction
@@ -37,7 +37,7 @@ data ReactionContent
   | Hooray
   | Rocket
   | Eyes
-  deriving (Show, Data, Typeable, Eq, Ord, Enum, Bounded, Generic)
+  deriving (Show, Data, Eq, Ord, Enum, Bounded, Generic)
 
 instance NFData ReactionContent
 instance Binary ReactionContent

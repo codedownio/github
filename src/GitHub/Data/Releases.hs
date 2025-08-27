@@ -25,7 +25,7 @@ data Release = Release
     , releaseAuthor          :: !SimpleUser
     , releaseAssets          :: !(Vector ReleaseAsset)
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON Release where
     parseJSON = withObject "Event" $ \o -> Release
@@ -64,7 +64,7 @@ data ReleaseAsset = ReleaseAsset
     , releaseAssetUpdatedAt          :: !UTCTime
     , releaseAssetUploader           :: !SimpleUser
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON ReleaseAsset where
     parseJSON = withObject "Event" $ \o -> ReleaseAsset

@@ -34,7 +34,7 @@ data DeploymentQueryOption
     | DeploymentQueryRef         !Text
     | DeploymentQueryTask        !Text
     | DeploymentQueryEnvironment !Text
-      deriving (Show, Data, Typeable, Eq, Ord, Generic)
+      deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData DeploymentQueryOption
 instance Binary DeploymentQueryOption
@@ -61,7 +61,7 @@ data Deployment a = Deployment
     , deploymentUpdatedAt     :: !UTCTime
     , deploymentStatusesUrl   :: !URL
     , deploymentRepositoryUrl :: !URL
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData a => NFData (Deployment a)
 instance Binary a => Binary (Deployment a)
@@ -104,7 +104,7 @@ data CreateDeployment a = CreateDeployment
     -- qa). Default: production
     , createDeploymentDescription      :: !(Maybe Text)
     -- ^ Short description of the deployment. Default: ""
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData a => NFData (CreateDeployment a)
 instance Binary a => Binary (CreateDeployment a)
@@ -132,7 +132,7 @@ data DeploymentStatus = DeploymentStatus
     , deploymentStatusUpdatedAt     :: !UTCTime
     , deploymentStatusDeploymentUrl :: !URL
     , deploymentStatusRepositoryUrl :: !URL
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData DeploymentStatus
 instance Binary DeploymentStatus
@@ -157,7 +157,7 @@ data DeploymentStatusState
     | DeploymentStatusPending
     | DeploymentStatusSuccess
     | DeploymentStatusInactive
-      deriving (Show, Data, Typeable, Eq, Ord, Generic)
+      deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData DeploymentStatusState
 instance Binary DeploymentStatusState
@@ -190,7 +190,7 @@ data CreateDeploymentStatus = CreateDeploymentStatus
     , createDeploymentStatusDescription :: !(Maybe Text)
     -- ^ A short description of the status. Maximum length of 140 characters.
     -- Default: ""
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData CreateDeploymentStatus
 instance Binary CreateDeploymentStatus

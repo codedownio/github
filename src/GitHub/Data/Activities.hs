@@ -13,7 +13,7 @@ data RepoStarred = RepoStarred
     { repoStarredStarredAt :: !UTCTime
     , repoStarredRepo      :: !Repo
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoStarred
 instance Binary RepoStarred
@@ -33,7 +33,7 @@ data Subject = Subject
     -- TODO: Make an ADT for this.
     , subjectType :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Subject
 instance Binary Subject
@@ -61,7 +61,7 @@ data NotificationReason
     | StateChangeReason
     | SubscribedReason
     | TeamMentionReason
-  deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData NotificationReason
 instance Binary NotificationReason
@@ -97,7 +97,7 @@ data Notification = Notification
     , notificationLastReadAt :: !(Maybe UTCTime)
     , notificationUrl :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Notification
 instance Binary Notification

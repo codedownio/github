@@ -20,7 +20,7 @@ data RepoWebhook = RepoWebhook
     , repoWebhookUpdatedAt    :: !UTCTime
     , repoWebhookCreatedAt    :: !UTCTime
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoWebhook
 instance Binary RepoWebhook
@@ -85,7 +85,7 @@ data RepoWebhookEvent
     | WebhookWatchEvent
     | WebhookWorkflowDispatch
     | WebhookWorkflowRun
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoWebhookEvent
 instance Binary RepoWebhookEvent
@@ -95,7 +95,7 @@ data RepoWebhookResponse = RepoWebhookResponse
     , repoWebhookResponseStatus  :: !(Maybe Text)
     , repoWebhookResponseMessage :: !(Maybe Text)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoWebhookResponse
 instance Binary RepoWebhookResponse
@@ -105,7 +105,7 @@ data PingEvent = PingEvent
     , pingEventHook   :: !RepoWebhook
     , pingEventHookId :: !(Id RepoWebhook)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData PingEvent
 instance Binary PingEvent
@@ -116,7 +116,7 @@ data NewRepoWebhook = NewRepoWebhook
     , newRepoWebhookEvents :: !(Maybe (Vector RepoWebhookEvent))
     , newRepoWebhookActive :: !(Maybe Bool)
     }
-  deriving (Eq, Ord, Show, Typeable, Data, Generic)
+  deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData NewRepoWebhook
 instance Binary NewRepoWebhook
@@ -128,7 +128,7 @@ data EditRepoWebhook = EditRepoWebhook
     , editRepoWebhookRemoveEvents :: !(Maybe (Vector RepoWebhookEvent))
     , editRepoWebhookActive       :: !(Maybe Bool)
     }
-  deriving (Eq, Ord, Show, Typeable, Data, Generic)
+  deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData EditRepoWebhook
 instance Binary EditRepoWebhook

@@ -27,20 +27,20 @@ data Cache = Cache
     , cacheCreatedAt      :: !UTCTime
     , cacheSizeInBytes    :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data RepositoryCacheUsage = RepositoryCacheUsage
     { repositoryCacheUsageFullName                :: !Text
     , repositoryCacheUsageActiveCachesSizeInBytes :: !Int
     , repositoryCacheUsageActiveCachesCount       :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data OrganizationCacheUsage = OrganizationCacheUsage
     { organizationCacheUsageTotalActiveCachesSizeInBytes :: !Int
     , organizationCacheUsageTotalActiveCachesCount       :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -------------------------------------------------------------------------------
 -- JSON instances

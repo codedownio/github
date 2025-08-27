@@ -104,7 +104,7 @@ data IssueState
     = StateOpen
     | StateClosed
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance ToJSON IssueState where
     toJSON StateOpen    = String "open"
@@ -126,7 +126,7 @@ data IssueStateReason
     | StateReasonNotPlanned
     | StateReasonReopened
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance ToJSON IssueStateReason where
     toJSON = String . \case
@@ -156,7 +156,7 @@ data MergeableState
     | StateBehind
     | StateDraft
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance ToJSON MergeableState where
     toJSON StateUnknown  = String "unknown"
@@ -185,7 +185,7 @@ data SortDirection
     = SortAscending
     | SortDescending
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData SortDirection
 instance Binary SortDirection
@@ -198,7 +198,7 @@ data SortPR
     | SortPRPopularity
     | SortPRLongRunning
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData SortPR
 instance Binary SortPR
@@ -211,7 +211,7 @@ data IssueFilter
     | IssueFilterSubscribed
     | IssueFilterAll
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData IssueFilter
 instance Binary IssueFilter
@@ -221,7 +221,7 @@ data SortIssue
     | SortIssueUpdated
     | SortIssueComments
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData SortIssue
 instance Binary SortIssue
@@ -234,7 +234,7 @@ data FilterBy a
       -- ^ e.g. for milestones "any" means "any milestone".
       -- I.e. won't show issues without mileston specified
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 -- Actions cache
 
@@ -243,7 +243,7 @@ data SortCache
     | SortCacheLastAccessedAt
     | SortCacheSizeInBytes
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData SortCache
 instance Binary SortCache
@@ -334,7 +334,7 @@ data PullRequestOptions = PullRequestOptions
     , pullRequestOptionsDirection :: !SortDirection
     }
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 defaultPullRequestOptions :: PullRequestOptions
 defaultPullRequestOptions = PullRequestOptions
@@ -429,7 +429,7 @@ data IssueOptions = IssueOptions
     , issueOptionsSince     :: !(Maybe UTCTime)
     }
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 defaultIssueOptions :: IssueOptions
 defaultIssueOptions = IssueOptions
@@ -575,7 +575,7 @@ data IssueRepoOptions = IssueRepoOptions
     , issueRepoOptionsSince     :: !(Maybe UTCTime)             -- ^ 'HasSince'
     }
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 defaultIssueRepoOptions :: IssueRepoOptions
 defaultIssueRepoOptions = IssueRepoOptions
@@ -714,7 +714,7 @@ data ArtifactOptions = ArtifactOptions
     { artifactOptionsName :: !(Maybe Text)
     }
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 defaultArtifactOptions :: ArtifactOptions
 defaultArtifactOptions = ArtifactOptions
@@ -763,7 +763,7 @@ data CacheOptions = CacheOptions
     , cacheOptionsDirection :: !(Maybe SortDirection)
     }
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 defaultCacheOptions :: CacheOptions
 defaultCacheOptions = CacheOptions
@@ -863,7 +863,7 @@ data WorkflowRunOptions = WorkflowRunOptions
     , workflowRunOptionsHeadSha :: !(Maybe Text)
     }
   deriving
-    (Eq, Ord, Show, Generic, Typeable, Data)
+    (Eq, Ord, Show, Generic, Data)
 
 defaultWorkflowRunOptions :: WorkflowRunOptions
 defaultWorkflowRunOptions = WorkflowRunOptions

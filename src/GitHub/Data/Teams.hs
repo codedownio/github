@@ -1,7 +1,4 @@
-{-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
 {-# LANGUAGE NoImplicitPrelude  #-}
-{-# LANGUAGE OverloadedStrings  #-}
 
 module GitHub.Data.Teams where
 
@@ -18,7 +15,7 @@ import qualified Data.Text as T
 data Privacy
     = PrivacyClosed
     | PrivacySecret
-    deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData Privacy
 instance Binary Privacy
@@ -27,7 +24,7 @@ data Permission
     = PermissionPull
     | PermissionPush
     | PermissionAdmin
-    deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData Permission
 instance Binary Permission
@@ -35,7 +32,7 @@ instance Binary Permission
 data AddTeamRepoPermission = AddTeamRepoPermission
     { addTeamRepoPermission :: !Permission
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData AddTeamRepoPermission
 instance Binary AddTeamRepoPermission
@@ -51,7 +48,7 @@ data SimpleTeam = SimpleTeam
     , simpleTeamMembersUrl      :: !URL
     , simpleTeamRepositoriesUrl :: !URL
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData SimpleTeam
 instance Binary SimpleTeam
@@ -70,7 +67,7 @@ data Team = Team
     , teamReposCount      :: !Int
     , teamOrganization    :: !SimpleOrganization
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Team
 instance Binary Team
@@ -82,7 +79,7 @@ data CreateTeam = CreateTeam
     , createTeamPrivacy     :: !Privacy
     , createTeamPermission  :: !Permission
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData CreateTeam
 instance Binary CreateTeam
@@ -93,7 +90,7 @@ data EditTeam = EditTeam
     , editTeamPrivacy     :: !(Maybe Privacy)
     , editTeamPermission  :: !(Maybe Permission)
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData EditTeam
 instance Binary  EditTeam
@@ -101,7 +98,7 @@ instance Binary  EditTeam
 data Role
     = RoleMaintainer
     | RoleMember
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Role
 instance Binary Role
@@ -109,7 +106,7 @@ instance Binary Role
 data ReqState
     = StatePending
     | StateActive
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData ReqState
 instance Binary ReqState
@@ -119,14 +116,14 @@ data TeamMembership = TeamMembership
     , teamMembershipRole     :: !Role
     , teamMembershipReqState :: !ReqState
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData TeamMembership
 instance Binary TeamMembership
 
 data CreateTeamMembership = CreateTeamMembership {
   createTeamMembershipRole :: !Role
-} deriving (Show, Data, Typeable, Eq, Ord, Generic)
+} deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData CreateTeamMembership
 instance Binary CreateTeamMembership
@@ -254,4 +251,4 @@ data TeamMemberRole
     = TeamMemberRoleAll         -- ^ all members of the team.
     | TeamMemberRoleMaintainer  -- ^ team maintainers
     | TeamMemberRoleMember      -- ^ normal members of the team.
-    deriving (Show, Eq, Ord, Enum, Bounded, Typeable, Data, Generic)
+    deriving (Show, Eq, Ord, Enum, Bounded, Data, Generic)

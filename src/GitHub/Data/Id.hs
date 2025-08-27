@@ -9,7 +9,7 @@ import Prelude ()
 
 -- | Numeric identifier.
 newtype Id entity = Id Int
-    deriving (Eq, Ord, Show, Generic, Typeable, Data)
+    deriving (Eq, Ord, Show, Generic, Data)
 
 -- | Smart constructor for 'Id'.
 mkId :: proxy entity -> Int -> Id entity

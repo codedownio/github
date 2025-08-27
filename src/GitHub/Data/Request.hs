@@ -61,7 +61,7 @@ data CommandMethod
     | Patch
     | Put
     | Delete
-  deriving (Eq, Ord, Read, Show, Enum, Bounded, Typeable, Data, Generic)
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Generic)
 
 instance Hashable CommandMethod
 
@@ -81,7 +81,7 @@ data FetchCount =
     FetchAtLeast !Word
     | FetchAll
     | FetchPage PageParams
-    deriving (Eq, Ord, Read, Show, Generic, Typeable)
+    deriving (Eq, Ord, Read, Show, Generic)
 
 
 -- | This instance is there mostly for 'fromInteger'.
@@ -111,7 +111,7 @@ data PageParams = PageParams {
     pageParamsPerPage :: Maybe Int
     , pageParamsPage :: Maybe Int
     }
-    deriving (Eq, Ord, Read, Show, Generic, Typeable)
+    deriving (Eq, Ord, Read, Show, Generic)
 
 instance Hashable PageParams
 instance Binary PageParams
@@ -129,7 +129,7 @@ data PageLinks = PageLinks {
     , pageLinksLast :: Maybe URI
     , pageLinksFirst :: Maybe URI
     }
-    deriving (Eq, Ord, Show, Generic, Typeable)
+    deriving (Eq, Ord, Show, Generic)
 
 instance NFData PageLinks
 
@@ -148,7 +148,7 @@ data MediaType a
     | MtStatus     -- ^ Parse status
     | MtUnit       -- ^ Always succeeds
     | MtPreview  a -- ^ Some other (preview) type; this is an extension point.
-  deriving (Eq, Ord, Read, Show, Typeable, Data, Generic)
+  deriving (Eq, Ord, Read, Show, Data, Generic)
 
 ------------------------------------------------------------------------------
 -- RW
@@ -160,7 +160,7 @@ data RW
     = RO  -- ^ /Read-only/, doesn't necessarily requires authentication
     | RA  -- ^ /Read authenticated/
     | RW  -- ^ /Read-write/, requires authentication
-  deriving (Eq, Ord, Read, Show, Enum, Bounded, Typeable, Data, Generic)
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Generic)
 
 {-
 data SRO (rw :: RW) where
@@ -194,7 +194,6 @@ data GenRequest (mt :: MediaType *) (rw :: RW) a where
         -> Paths                   -- ^ path
         -> LBS.ByteString          -- ^ body
         -> GenRequest mt 'RW a
-  deriving (Typeable)
 
 -- | Most requests ask for @JSON@.
 type Request = GenRequest 'MtJSON

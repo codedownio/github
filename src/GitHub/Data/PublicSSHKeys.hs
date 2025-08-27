@@ -14,7 +14,7 @@ data PublicSSHKeyBasic = PublicSSHKeyBasic
     { basicPublicSSHKeyId        :: !(Id PublicSSHKey)
     , basicPublicSSHKeyKey       :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON PublicSSHKeyBasic where
     parseJSON = withObject "PublicSSHKeyBasic" $ \o -> PublicSSHKeyBasic
@@ -30,7 +30,7 @@ data PublicSSHKey = PublicSSHKey
     , publicSSHKeyCreatedAt :: !(Maybe UTCTime)
     , publicSSHKeyReadOnly  :: !Bool
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON PublicSSHKey where
     parseJSON = withObject "PublicSSHKey" $ \o -> PublicSSHKey
@@ -46,7 +46,7 @@ data NewPublicSSHKey = NewPublicSSHKey
     { newPublicSSHKeyKey      :: !Text
     , newPublicSSHKeyTitle    :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance ToJSON NewPublicSSHKey where
     toJSON (NewPublicSSHKey key title) = object

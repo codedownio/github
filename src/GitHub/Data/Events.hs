@@ -16,7 +16,7 @@ data Event = Event
     , eventCreatedAt :: !UTCTime
     , eventPublic    :: !Bool
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Event
 instance Binary Event

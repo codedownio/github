@@ -22,13 +22,13 @@ data Error
     | ParseError !Text -- ^ An error in the parser itself.
     | JsonError !Text -- ^ The JSON is malformed or unexpected.
     | UserError !Text -- ^ Incorrect input.
-    deriving (Show, Typeable)
+    deriving (Show)
 
 instance E.Exception Error
 
 -- | Type of the repository owners.
 data OwnerType = OwnerUser | OwnerOrganization | OwnerBot
-    deriving (Eq, Ord, Enum, Bounded, Show, Read, Generic, Typeable, Data)
+    deriving (Eq, Ord, Enum, Bounded, Show, Read, Generic, Data)
 
 instance NFData OwnerType
 instance Binary OwnerType
@@ -39,7 +39,7 @@ data SimpleUser = SimpleUser
     , simpleUserAvatarUrl :: !URL
     , simpleUserUrl       :: !URL
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData SimpleUser
 instance Binary SimpleUser
@@ -50,7 +50,7 @@ data SimpleOrganization = SimpleOrganization
     , simpleOrganizationUrl       :: !URL
     , simpleOrganizationAvatarUrl :: !URL
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData SimpleOrganization
 instance Binary SimpleOrganization
@@ -63,7 +63,7 @@ data SimpleOwner = SimpleOwner
     , simpleOwnerAvatarUrl :: !URL
     , simpleOwnerType      :: !OwnerType
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData SimpleOwner
 instance Binary SimpleOwner
@@ -88,7 +88,7 @@ data User = User
     , userUrl         :: !URL
     , userHtmlUrl     :: !URL
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData User
 instance Binary User
@@ -111,14 +111,14 @@ data Organization = Organization
     , organizationUrl         :: !URL
     , organizationCreatedAt   :: !UTCTime
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Organization
 instance Binary Organization
 
 -- | In practice you can't have concrete values of 'Owner'.
 newtype Owner = Owner (Either User Organization)
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Owner
 instance Binary Owner
@@ -218,14 +218,14 @@ instance FromJSON Owner where
 data OrgMemberFilter
     = OrgMemberFilter2faDisabled  -- ^ Members without two-factor authentication enabled. Available for organization owners.
     | OrgMemberFilterAll          -- ^ All members the authenticated user can see.
-    deriving (Show, Eq, Ord, Enum, Bounded, Typeable, Data, Generic)
+    deriving (Show, Eq, Ord, Enum, Bounded, Data, Generic)
 
 -- | Filter members returned by their role.
 data OrgMemberRole
     = OrgMemberRoleAll     -- ^ All members of the organization, regardless of role.
     | OrgMemberRoleAdmin   -- ^ Organization owners.
     | OrgMemberRoleMember  -- ^ Non-owner organization members.
-    deriving (Show, Eq, Ord, Enum, Bounded, Typeable, Data, Generic)
+    deriving (Show, Eq, Ord, Enum, Bounded, Data, Generic)
 
 -- | Request query string
 type QueryString = [(BS.ByteString, Maybe BS.ByteString)]
@@ -240,7 +240,7 @@ data MembershipRole
     | MembershipRoleAdmin
     | MembershipRoleBillingManager
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData MembershipRole
 instance Binary MembershipRole
@@ -255,7 +255,7 @@ instance FromJSON MembershipRole where
 data MembershipState
     = MembershipPending
     | MembershipActive
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData MembershipState
 instance Binary MembershipState
@@ -275,7 +275,7 @@ data Membership = Membership
     , membershipOrganization    :: !SimpleOrganization
     , membershipUser            :: !SimpleUser
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Membership
 instance Binary Membership
@@ -295,7 +295,7 @@ instance FromJSON Membership where
 -------------------------------------------------------------------------------
 
 newtype IssueNumber = IssueNumber Int
-    deriving (Eq, Ord, Show, Generic, Typeable, Data)
+    deriving (Eq, Ord, Show, Generic, Data)
 
 unIssueNumber :: IssueNumber -> Int
 unIssueNumber (IssueNumber i) = i
@@ -322,7 +322,7 @@ data IssueLabel = IssueLabel
     , labelName  :: !(Name IssueLabel)
     , labelDesc  :: !(Maybe Text)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData IssueLabel
 instance Binary IssueLabel
@@ -344,7 +344,7 @@ data NewIssueLabel = NewIssueLabel
     , newLabelName  :: !(Name NewIssueLabel)
     , newLabelDesc  :: !(Maybe Text)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewIssueLabel
 instance Binary NewIssueLabel
@@ -371,7 +371,7 @@ data UpdateIssueLabel = UpdateIssueLabel
     , updateLabelName  :: !(Name UpdateIssueLabel)
     , updateLabelDesc  :: !(Maybe Text)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData UpdateIssueLabel
 instance Binary UpdateIssueLabel

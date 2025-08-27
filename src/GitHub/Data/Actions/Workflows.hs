@@ -25,7 +25,7 @@ data Workflow = Workflow
     , workflowHtmlUrl    :: !URL
     , workflowBadgeUrl   :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data CreateWorkflowDispatchEvent a = CreateWorkflowDispatchEvent
     { createWorkflowDispatchEventRef    :: !Text

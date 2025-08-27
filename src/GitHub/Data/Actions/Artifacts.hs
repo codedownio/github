@@ -27,7 +27,7 @@ data ArtifactWorkflowRun  = ArtifactWorkflowRun
     , artifactWorkflowRunHeadBranch       :: !Text
     , artifactWorkflowRunHeadSha          :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data Artifact = Artifact
     { artifactArchiveDownloadUrl :: !URL
@@ -42,7 +42,7 @@ data Artifact = Artifact
     , artifactUrl                :: !URL
     , artifactWorkflowRun        :: !ArtifactWorkflowRun
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -------------------------------------------------------------------------------
 -- JSON instances

@@ -53,7 +53,7 @@ data Repo = Repo
     , repoUpdatedAt       :: !(Maybe UTCTime)
     , repoPermissions     :: !(Maybe RepoPermissions) -- ^ Repository permissions as they relate to the authenticated user.
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Repo
 instance Binary Repo
@@ -88,7 +88,7 @@ data CodeSearchRepo = CodeSearchRepo
     , codeSearchRepoUpdatedAt       :: !(Maybe UTCTime)
     , codeSearchRepoPermissions     :: !(Maybe RepoPermissions) -- ^ Repository permissions as they relate to the authenticated user.
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData CodeSearchRepo
 instance Binary CodeSearchRepo
@@ -101,7 +101,7 @@ data RepoPermissions = RepoPermissions
     , repoPermissionPush :: !Bool
     , repoPermissionPull :: !Bool
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoPermissions
 instance Binary RepoPermissions
@@ -110,7 +110,7 @@ data RepoRef = RepoRef
     { repoRefOwner :: !SimpleOwner
     , repoRefRepo  :: !(Name Repo)
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoRef
 instance Binary RepoRef
@@ -129,7 +129,7 @@ data NewRepo = NewRepo
     , newRepoAllowSquashMerge  :: !(Maybe Bool)
     , newRepoAllowMergeCommit  :: !(Maybe Bool)
     , newRepoAllowRebaseMerge  :: !(Maybe Bool)
-    } deriving (Eq, Ord, Show, Data, Typeable, Generic)
+    } deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData NewRepo
 instance Binary NewRepo
@@ -151,7 +151,7 @@ data EditRepo = EditRepo
     , editAllowRebaseMerge :: !(Maybe Bool)
     , editArchived         :: !(Maybe Bool)
     }
-    deriving (Eq, Ord, Show, Data, Typeable, Generic)
+    deriving (Eq, Ord, Show, Data, Generic)
 
 instance NFData EditRepo
 instance Binary EditRepo
@@ -163,14 +163,14 @@ data RepoPublicity
     | RepoPublicityPublic  -- ^ Only public repos.
     | RepoPublicityPrivate -- ^ Only private repos.
     | RepoPublicityMember  -- ^ Only repos to which the user is a member but not an owner.
-    deriving (Show, Eq, Ord, Enum, Bounded, Typeable, Data, Generic)
+    deriving (Show, Eq, Ord, Enum, Bounded, Data, Generic)
 
 -- | The value is the number of bytes of code written in that language.
 type Languages = HM.HashMap Language Int
 
 -- | A programming language.
 newtype Language = Language Text
-   deriving (Show, Data, Typeable, Eq, Ord, Generic)
+   deriving (Show, Data, Eq, Ord, Generic)
 
 getLanguage :: Language -> Text
 getLanguage (Language l) = l
@@ -188,7 +188,7 @@ data Contributor
     = KnownContributor !Int !URL !(Name User) !URL !(Id User) !Text
     -- | An unknown Github user with their number of contributions and recorded name.
     | AnonymousContributor !Int !Text
-   deriving (Show, Data, Typeable, Eq, Ord, Generic)
+   deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Contributor
 instance Binary Contributor
@@ -205,7 +205,7 @@ data CollaboratorPermission
     | CollaboratorPermissionWrite
     | CollaboratorPermissionRead
     | CollaboratorPermissionNone
-    deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData CollaboratorPermission
 instance Binary CollaboratorPermission
@@ -214,7 +214,7 @@ instance Binary CollaboratorPermission
 -- See <https://developer.github.com/v3/repos/collaborators/#review-a-users-permission-level>
 data CollaboratorWithPermission
     = CollaboratorWithPermission SimpleUser CollaboratorPermission
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData CollaboratorWithPermission
 instance Binary CollaboratorWithPermission
@@ -381,7 +381,7 @@ instance FromJSONKey Language where
 data ArchiveFormat
     = ArchiveFormatTarball -- ^ ".tar.gz" format
     | ArchiveFormatZipball -- ^ ".zip" format
-    deriving (Show, Eq, Ord, Enum, Bounded, Typeable, Data, Generic)
+    deriving (Show, Eq, Ord, Enum, Bounded, Data, Generic)
 
 instance IsPathPart ArchiveFormat where
     toPathPart af = case af of

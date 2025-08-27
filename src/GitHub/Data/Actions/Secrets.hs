@@ -33,13 +33,13 @@ data OrganizationSecret = OrganizationSecret
     , organizationSecretUpdatedAt :: !UTCTime
     , organizationSecretVisibility :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data PublicKey = PublicKey
     { publicKeyId :: !Text
     , publicKeyKey :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data SetSecret = SetSecret
     { setSecretPublicKeyId :: !Text
@@ -47,35 +47,35 @@ data SetSecret = SetSecret
     , setSecretVisibility :: !Text
     , setSecretSelectedRepositoryIds :: !(Maybe [Id Repo])
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data SetRepoSecret = SetRepoSecret
     { setRepoSecretPublicKeyId :: !Text
     , setRepoSecretEncryptedValue :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data SelectedRepo = SelectedRepo
     { selectedRepoRepoId :: !(Id Repo)
     , selectedRepoRepoName :: !(Name Repo)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data SetSelectedRepositories = SetSelectedRepositories
     { setSelectedRepositoriesRepositoryIds :: ![Id Repo]
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data RepoSecret = RepoSecret
     { repoSecretName :: !(Name RepoSecret)
     , repoSecretCreatedAt :: !UTCTime
     , repoSecretUpdatedAt :: !UTCTime
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -- TODO move somewhere else?
 data Environment = Environment
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -------------------------------------------------------------------------------
 -- JSON instances

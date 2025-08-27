@@ -20,7 +20,7 @@ data WithTotalCount a = WithTotalCount
     , withTotalCountTotalCount :: !Int
         -- ^ The total size of the answer.
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -- | Joining two pages of a paginated response.
 --   The 'withTotalCountTotalCount' is assumed to be the same in both pages,

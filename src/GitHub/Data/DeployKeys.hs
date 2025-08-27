@@ -19,7 +19,7 @@ data RepoDeployKey = RepoDeployKey
     , repoDeployKeyCreatedAt :: !UTCTime
     , repoDeployKeyReadOnly  :: !Bool
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON RepoDeployKey where
     parseJSON = withObject "RepoDeployKey" $ \o -> RepoDeployKey
@@ -36,7 +36,7 @@ data NewRepoDeployKey = NewRepoDeployKey
     , newRepoDeployKeyTitle    :: !Text
     , newRepoDeployKeyReadOnly :: !Bool
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance ToJSON NewRepoDeployKey where
     toJSON (NewRepoDeployKey key title readOnly) = object

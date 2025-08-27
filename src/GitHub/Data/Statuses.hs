@@ -1,7 +1,5 @@
-{-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric      #-}
 {-# LANGUAGE NoImplicitPrelude  #-}
-{-# LANGUAGE OverloadedStrings  #-}
+
 module GitHub.Data.Statuses where
 
 import GitHub.Data.Definitions
@@ -21,7 +19,7 @@ data StatusState
     | StatusSuccess
     | StatusError
     | StatusFailure
-  deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData StatusState
 instance Binary StatusState
@@ -52,7 +50,7 @@ data Status = Status
     , statusContext     :: !(Maybe Text)
     , statusCreator     :: !(Maybe SimpleUser)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON Status where
   parseJSON = withObject "Status" $ \o -> Status
@@ -73,7 +71,7 @@ data NewStatus = NewStatus
     , newStatusDescription :: !(Maybe Text)
     , newStatusContext     :: !(Maybe Text)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewStatus
 instance Binary NewStatus
@@ -99,7 +97,7 @@ data CombinedStatus = CombinedStatus
     , combinedStatusCommitUrl  :: !URL
     , combinedStatusUrl        :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance FromJSON CombinedStatus where
     parseJSON = withObject "CombinedStatus" $ \o -> CombinedStatus

@@ -15,14 +15,14 @@ data CommitQueryOption
     | CommitQueryAuthor !Text
     | CommitQuerySince !UTCTime
     | CommitQueryUntil !UTCTime
-  deriving (Show, Eq, Ord, Generic, Typeable, Data)
+  deriving (Show, Eq, Ord, Generic, Data)
 
 data Stats = Stats
     { statsAdditions :: !Int
     , statsTotal     :: !Int
     , statsDeletions :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Stats
 instance Binary Stats
@@ -37,7 +37,7 @@ data Commit = Commit
     , commitFiles     :: !(Vector File)
     , commitStats     :: !(Maybe Stats)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Commit
 instance Binary Commit
@@ -47,7 +47,7 @@ data Tree = Tree
     , treeUrl      :: !URL
     , treeGitTrees :: !(Vector GitTree)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Tree
 instance Binary Tree
@@ -61,7 +61,7 @@ data GitTree = GitTree
     , gitTreePath :: !Text
     , gitTreeMode :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData GitTree
 instance Binary GitTree
@@ -75,7 +75,7 @@ data GitCommit = GitCommit
     , gitCommitSha       :: !(Maybe (Name GitCommit))
     , gitCommitParents   :: !(Vector Tree)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData GitCommit
 instance Binary GitCommit
@@ -87,7 +87,7 @@ data Blob = Blob
     , blobSha      :: !(Name Blob)
     , blobSize     :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Blob
 instance Binary Blob
@@ -98,7 +98,7 @@ data Tag = Tag
     , tagTarballUrl :: !URL
     , tagCommit     :: !BranchCommit
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Tag
 instance Binary Tag
@@ -107,7 +107,7 @@ data Branch = Branch
     { branchName   :: !Text
     , branchCommit :: !BranchCommit
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Branch
 
@@ -115,7 +115,7 @@ data BranchCommit = BranchCommit
     { branchCommitSha :: !Text
     , branchCommitUrl :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData BranchCommit
 instance Binary BranchCommit
@@ -134,7 +134,7 @@ data Diff = Diff
     , diffDiffUrl      :: !URL
     , diffPermalinkUrl :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Diff
 instance Binary Diff
@@ -143,7 +143,7 @@ data NewGitReference = NewGitReference
     { newGitReferenceRef :: !Text
     , newGitReferenceSha :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewGitReference
 instance Binary NewGitReference
@@ -153,7 +153,7 @@ data GitReference = GitReference
     , gitReferenceUrl    :: !URL
     , gitReferenceRef    :: !(Name GitReference)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData GitReference
 instance Binary GitReference
@@ -163,7 +163,7 @@ data GitObject = GitObject
     , gitObjectSha  :: !Text
     , gitObjectUrl  :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData GitObject
 instance Binary GitObject
@@ -173,7 +173,7 @@ data GitUser = GitUser
     , gitUserEmail :: !Text
     , gitUserDate  :: !UTCTime
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData GitUser
 instance Binary GitUser
@@ -189,7 +189,7 @@ data File = File
     , fileFilename  :: !Text
     , fileDeletions :: !Int
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData File
 instance Binary File

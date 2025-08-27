@@ -11,7 +11,7 @@ import Data.Aeson.Types
        (FromJSONKey (..), ToJSONKey (..), fromJSONKeyCoerce, toJSONKeyText)
 
 newtype Name entity = N Text
-    deriving (Eq, Ord, Show, Generic, Typeable, Data)
+    deriving (Eq, Ord, Show, Generic, Data)
 
 -- | Smart constructor for 'Name'
 mkName :: proxy entity -> Text -> Name entity

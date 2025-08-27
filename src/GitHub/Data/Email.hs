@@ -8,7 +8,7 @@ import qualified Data.Text as T
 data EmailVisibility
     = EmailVisibilityPrivate
     | EmailVisibilityPublic
-    deriving (Show, Data, Enum, Bounded, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Enum, Bounded, Eq, Ord, Generic)
 
 instance NFData EmailVisibility
 instance Binary EmailVisibility
@@ -24,7 +24,7 @@ data Email = Email
     , emailVerified   :: !Bool
     , emailPrimary    :: !Bool
     , emailVisibility :: !(Maybe EmailVisibility)
-    } deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    } deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Email
 instance Binary Email

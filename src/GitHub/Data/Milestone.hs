@@ -18,7 +18,7 @@ data Milestone = Milestone
     , milestoneCreatedAt    :: !UTCTime
     , milestoneState        :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Milestone
 instance Binary Milestone
@@ -42,7 +42,7 @@ data NewMilestone = NewMilestone
     , newMilestoneDescription :: !(Maybe Text)
     , newMilestoneDueOn       :: !(Maybe UTCTime)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData NewMilestone
 instance Binary NewMilestone
@@ -65,7 +65,7 @@ data UpdateMilestone = UpdateMilestone
   , updateMilestoneDescription :: !(Maybe Text)
   , updateMilestoneDueOn       :: !(Maybe UTCTime)
   }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData UpdateMilestone
 instance Binary UpdateMilestone

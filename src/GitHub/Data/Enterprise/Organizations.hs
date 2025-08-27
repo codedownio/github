@@ -11,7 +11,7 @@ data CreateOrganization = CreateOrganization
     , createOrganizationAdmin       :: !(Name User)
     , createOrganizationProfileName :: !(Maybe Text)
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData CreateOrganization
 instance Binary CreateOrganization
@@ -19,7 +19,7 @@ instance Binary CreateOrganization
 data RenameOrganization = RenameOrganization
     { renameOrganizationLogin :: !(Name Organization)
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RenameOrganization
 instance Binary RenameOrganization
@@ -28,7 +28,7 @@ data RenameOrganizationResponse = RenameOrganizationResponse
     { renameOrganizationResponseMessage :: !Text
     , renameOrganizationResponseUrl     :: !URL
     }
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RenameOrganizationResponse
 instance Binary RenameOrganizationResponse

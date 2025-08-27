@@ -21,7 +21,7 @@ data Gist = Gist
     , gistId          :: !(Name Gist)
     , gistFiles       :: !(HashMap Text GistFile)
     , gistGitPullUrl  :: !URL
-    } deriving (Show, Data, Typeable, Eq, Generic)
+    } deriving (Show, Data, Eq, Generic)
 
 instance NFData Gist
 instance Binary Gist
@@ -49,7 +49,7 @@ data GistFile = GistFile
     , gistFileFilename :: !Text
     , gistFileContent  :: !(Maybe Text)
     }
-  deriving (Show, Data, Typeable, Eq, Generic)
+  deriving (Show, Data, Eq, Generic)
 
 instance NFData GistFile
 instance Binary GistFile
@@ -71,7 +71,7 @@ data GistComment = GistComment
     , gistCommentUpdatedAt :: !UTCTime
     , gistCommentId        :: !(Id GistComment)
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData GistComment
 instance Binary GistComment
@@ -89,7 +89,7 @@ data NewGist = NewGist
     { newGistDescription :: !(Maybe Text)
     , newGistFiles       :: !(HashMap Text NewGistFile)
     , newGistPublic      :: !(Maybe Bool)
-    } deriving (Show, Data, Typeable, Eq, Generic)
+    } deriving (Show, Data, Eq, Generic)
 
 instance NFData NewGist
 instance Binary NewGist
@@ -109,7 +109,7 @@ instance ToJSON NewGist where
 
 data NewGistFile = NewGistFile
     { newGistFileContent :: !Text
-    } deriving (Show, Data, Typeable, Eq, Generic)
+    } deriving (Show, Data, Eq, Generic)
 
 instance NFData NewGistFile
 instance Binary NewGistFile

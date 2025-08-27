@@ -19,7 +19,7 @@ data Invitation = Invitation
     , invitationCreatedAt :: !UTCTime
     , inviter             :: !SimpleUser
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Invitation
 instance Binary Invitation
@@ -41,7 +41,7 @@ data InvitationRole
     | InvitationRoleHiringManager
     | InvitationRoleReinstate
   deriving
-    (Eq, Ord, Show, Enum, Bounded, Generic, Typeable, Data)
+    (Eq, Ord, Show, Enum, Bounded, Generic, Data)
 
 instance NFData InvitationRole
 instance Binary InvitationRole
@@ -65,7 +65,7 @@ data RepoInvitation = RepoInvitation
     , repoInvitationPermission :: !Text
     , repoInvitationHtmlUrl    :: !URL
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData RepoInvitation
 instance Binary RepoInvitation

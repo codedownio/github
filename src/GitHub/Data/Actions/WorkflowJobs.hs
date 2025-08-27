@@ -10,7 +10,7 @@ module GitHub.Data.Actions.WorkflowJobs (
 import Prelude ()
 import GitHub.Internal.Prelude
        (Applicative ((<*>)), Data, Eq, FromJSON (parseJSON), Generic, Integer,
-       Ord, Show, Text, Typeable, UTCTime, Vector, withObject, ($), (.:),
+       Ord, Show, Text, UTCTime, Vector, withObject, ($), (.:),
        (<$>))
 
 import GitHub.Data.Id                   (Id)
@@ -32,7 +32,7 @@ data JobStep = JobStep
     , jobStepStartedAt   :: !UTCTime
     , jobStepCompletedAt :: !UTCTime
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data Job = Job
     { jobId              :: !(Id Job)
@@ -56,7 +56,7 @@ data Job = Job
     , jobRunnerGroupId   :: !Integer
     , jobRunnerGroupName :: !Text
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -------------------------------------------------------------------------------
 -- JSON instances

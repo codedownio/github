@@ -23,7 +23,7 @@ data Auth
     | OAuth Token                            -- ^ OAuth token
     | JWT JWTToken                           -- ^ JWT Token
     | EnterpriseOAuth Text Token             -- ^ Custom endpoint and OAuth token
-    deriving (Show, Data, Typeable, Eq, Ord, Generic)
+    deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Auth
 instance Binary Auth

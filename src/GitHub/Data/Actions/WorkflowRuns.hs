@@ -41,10 +41,10 @@ data WorkflowRun  = WorkflowRun
     , workflowRunAttempt :: !Integer
     , workflowRunStartedAt :: !UTCTime
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data RunAttempt = RunAttempt
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 data ReviewHistory  = ReviewHistory
     { reviewHistoryState :: !Text
@@ -52,7 +52,7 @@ data ReviewHistory  = ReviewHistory
     , reviewHistoryUser :: !SimpleUser
 
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 -------------------------------------------------------------------------------
 -- JSON instances

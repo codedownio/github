@@ -13,7 +13,7 @@ data Limits = Limits
     , limitsRemaining :: !Int
     , limitsReset     :: !SystemTime
     }
-  deriving (Show, {- Data, -} Typeable, Eq, Ord, Generic)
+  deriving (Show, Eq, Ord, Generic)
 
 instance NFData Limits
 instance Binary Limits
@@ -29,7 +29,7 @@ data RateLimit = RateLimit
     , rateLimitSearch  :: Limits
     , rateLimitGraphQL :: Limits
     }
-  deriving (Show, {- Data, -} Typeable, Eq, Ord, Generic)
+  deriving (Show, Eq, Ord, Generic)
 
 instance NFData RateLimit
 instance Binary RateLimit

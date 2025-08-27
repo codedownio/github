@@ -11,7 +11,7 @@ data SearchResult' entities = SearchResult
     { searchResultTotalCount :: !Int
     , searchResultResults    :: !entities
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 type SearchResult entity = SearchResult' (V.Vector entity)
 
@@ -38,7 +38,7 @@ data Code = Code
     , codeHtmlUrl :: !URL
     , codeRepo    :: !CodeSearchRepo
     }
-  deriving (Show, Data, Typeable, Eq, Ord, Generic)
+  deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData Code
 instance Binary Code
