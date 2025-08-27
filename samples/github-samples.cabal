@@ -29,7 +29,6 @@ library
   build-depends:
     , base                   >=4.11 && <5
         -- require base-4.11 because then (<>) is in Prelude
-    , base-compat-batteries
     , github
     , text
 

@@ -3,6 +3,11 @@ haddock: >=8.6
   -- See PR #355: haddocks for GADT constructor arguments only supported from GHC 8.6
 jobs-selection: any
 
+-- Package github-samples uses "include" for dependencies,
+-- so they are a superset.
+-- Dissecting this is a waste of time, so I turn -Werror=unused-packages off
+error-unused-packages: False
+
 -- Some dependencies do not allow mtl-2.3 yet, so this doesn't pass yet:
 -- constraint-set mtl-2.3
 --   ghc: >= 8.6
