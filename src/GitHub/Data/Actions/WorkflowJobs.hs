@@ -7,11 +7,11 @@ module GitHub.Data.Actions.WorkflowJobs (
     Job(..),
     ) where
 
-import Prelude ()
 import GitHub.Internal.Prelude
        (Applicative ((<*>)), Data, Eq, FromJSON (parseJSON), Generic, Integer,
-       Ord, Show, Text, UTCTime, Vector, withObject, ($), (.:),
+       Maybe, Ord, Show, Text, UTCTime, Vector, withObject, ($), (.:),
        (<$>))
+import Prelude ()
 
 import GitHub.Data.Id                   (Id)
 import GitHub.Data.Name                 (Name)
@@ -44,17 +44,17 @@ data Job = Job
     , jobUrl             :: !URL
     , jobHtmlUrl         :: !URL
     , jobStatus          :: !Text
-    , jobConclusion      :: !Text
+    , jobConclusion      :: !(Maybe Text)
     , jobStartedAt       :: !UTCTime
-    , jobCompletedAt     :: !UTCTime
+    , jobCompletedAt     :: !(Maybe UTCTime)
     , jobName            :: !(Name Job)
     , jobSteps           :: !(Vector JobStep)
     , jobRunCheckUrl     :: !URL
     , jobLabels          :: !(Vector Text)
-    , jobRunnerId        :: !Integer
-    , jobRunnerName      :: !Text
-    , jobRunnerGroupId   :: !Integer
-    , jobRunnerGroupName :: !Text
+    , jobRunnerId        :: !(Maybe Integer)
+    , jobRunnerName      :: !(Maybe Text)
+    , jobRunnerGroupId   :: !(Maybe Integer)
+    , jobRunnerGroupName :: !(Maybe Text)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
