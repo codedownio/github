@@ -27,10 +27,10 @@ import GitHub.Data.Actions.WorkflowRuns (WorkflowRun)
 data JobStep = JobStep
     { jobStepName        :: !(Name JobStep)
     , jobStepStatus      :: !Text
-    , jobStepConclusion  :: !Text
+    , jobStepConclusion  :: !(Maybe Text)
     , jobStepNumber      :: !Integer
-    , jobStepStartedAt   :: !UTCTime
-    , jobStepCompletedAt :: !UTCTime
+    , jobStepStartedAt   :: !(Maybe UTCTime)
+    , jobStepCompletedAt :: !(Maybe UTCTime)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
