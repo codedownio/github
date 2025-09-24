@@ -20,38 +20,39 @@ import qualified Data.Text as T
 import Data.Aeson.Types (FromJSONKey (..), fromJSONKeyCoerce)
 
 data Repo = Repo
-    { repoId              :: !(Id Repo)
-    , repoName            :: !(Name Repo)
-    , repoOwner           :: !SimpleOwner
-    , repoPrivate         :: !Bool
-    , repoHtmlUrl         :: !URL
-    , repoDescription     :: !(Maybe Text)
-    , repoFork            :: !(Maybe Bool)
-    , repoUrl             :: !URL
-    , repoGitUrl          :: !(Maybe URL)
-    , repoSshUrl          :: !(Maybe URL)
-    , repoCloneUrl        :: !(Maybe URL)
-    , repoHooksUrl        :: !URL
-    , repoSvnUrl          :: !(Maybe URL)
-    , repoHomepage        :: !(Maybe Text)
-    , repoLanguage        :: !(Maybe Language)
-    , repoForksCount      :: !Int
-    , repoStargazersCount :: !Int
-    , repoWatchersCount   :: !Int
-    , repoSize            :: !(Maybe Int)
-    , repoDefaultBranch   :: !(Maybe Text)
-    , repoOpenIssuesCount :: !Int
-    , repoHasIssues       :: !(Maybe Bool)
-    , repoHasProjects     :: !(Maybe Bool)
-    , repoHasWiki         :: !(Maybe Bool)
-    , repoHasPages        :: !(Maybe Bool)
-    , repoHasDownloads    :: !(Maybe Bool)
-    , repoArchived        :: !Bool
-    , repoDisabled        :: !Bool
-    , repoPushedAt        :: !(Maybe UTCTime)   -- ^ this is Nothing for new repositories
-    , repoCreatedAt       :: !(Maybe UTCTime)
-    , repoUpdatedAt       :: !(Maybe UTCTime)
-    , repoPermissions     :: !(Maybe RepoPermissions) -- ^ Repository permissions as they relate to the authenticated user.
+    { repoId               :: !(Id Repo)
+    , repoName             :: !(Name Repo)
+    , repoOwner            :: !SimpleOwner
+    , repoPrivate          :: !Bool
+    , repoHtmlUrl          :: !URL
+    , repoDescription      :: !(Maybe Text)
+    , repoFork             :: !(Maybe Bool)
+    , repoUrl              :: !URL
+    , repoGitUrl           :: !(Maybe URL)
+    , repoSshUrl           :: !(Maybe URL)
+    , repoCloneUrl         :: !(Maybe URL)
+    , repoHooksUrl         :: !URL
+    , repoSvnUrl           :: !(Maybe URL)
+    , repoHomepage         :: !(Maybe Text)
+    , repoLanguage         :: !(Maybe Language)
+    , repoForksCount       :: !Int
+    , repoStargazersCount  :: !Int
+    , repoWatchersCount    :: !Int
+    , repoSubscribersCount :: !(Maybe Int)
+    , repoSize             :: !(Maybe Int)
+    , repoDefaultBranch    :: !(Maybe Text)
+    , repoOpenIssuesCount  :: !Int
+    , repoHasIssues        :: !(Maybe Bool)
+    , repoHasProjects      :: !(Maybe Bool)
+    , repoHasWiki          :: !(Maybe Bool)
+    , repoHasPages         :: !(Maybe Bool)
+    , repoHasDownloads     :: !(Maybe Bool)
+    , repoArchived         :: !Bool
+    , repoDisabled         :: !Bool
+    , repoPushedAt         :: !(Maybe UTCTime)   -- ^ this is Nothing for new repositories
+    , repoCreatedAt        :: !(Maybe UTCTime)
+    , repoUpdatedAt        :: !(Maybe UTCTime)
+    , repoPermissions      :: !(Maybe RepoPermissions) -- ^ Repository permissions as they relate to the authenticated user.
     }
     deriving (Show, Data, Eq, Ord, Generic)
 
@@ -240,6 +241,7 @@ instance FromJSON Repo where
         <*> o .: "forks_count"
         <*> o .: "stargazers_count"
         <*> o .: "watchers_count"
+        <*> o .:? "subscribers_count"
         <*> o .:? "size"
         <*> o .:? "default_branch"
         <*> o .: "open_issues_count"
