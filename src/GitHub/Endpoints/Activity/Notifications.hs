@@ -14,8 +14,8 @@ import Prelude ()
 
 -- | List your notifications.
 -- See <https://developer.github.com/v3/activity/notifications/#list-your-notifications>
-getNotificationsR :: FetchCount -> Request 'RA (Vector Notification)
-getNotificationsR = pagedQuery ["notifications"] []
+getNotificationsR :: NotificationMod -> FetchCount -> Request 'RA (Vector Notification)
+getNotificationsR opts = pagedQuery ["notifications"] (notificationModToQueryString opts)
 
 -- | Mark a thread as read.
 -- See <https://developer.github.com/v3/activity/notifications/#mark-a-thread-as-read>

@@ -72,6 +72,11 @@ module GitHub.Data.Options (
     optionsWorkflowRunStatus,
     optionsWorkflowRunCreated,
     optionsWorkflowRunHeadSha,
+    -- * Notifications
+    NotificationMod,
+    notificationModToQueryString,
+    optionsAll,
+    optionsUnreadOnly,
     -- * Data
     IssueState (..),
     IssueStateReason (..),
@@ -937,3 +942,45 @@ optionsWorkflowRunCreated x = WorkflowRunMod $ \opts ->
 optionsWorkflowRunHeadSha :: Text -> WorkflowRunMod
 optionsWorkflowRunHeadSha x = WorkflowRunMod $ \opts ->
     opts { workflowRunOptionsHeadSha = Just x }
+
+-------------------------------------------------------------------------------
+-- Notifications modifiers
+-------------------------------------------------------------------------------
+
+data NotificationOptions = NotificationOptions
+    { notificationOptionsAll :: !Bool
+    } deriving (Eq, Ord, Show, Generic)
+
+defaultNotificationOptions :: NotificationOptions
+defaultNotificationOptions = NotificationOptions
+    { notificationOptionsAll = True
+    }
+
+newtype NotificationMod = NotificationMod (NotificationOptions -> NotificationOptions)
+
+instance Semigroup NotificationMod where
+    NotificationMod f <> NotificationMod g = NotificationMod (g . f)
+
+instance Monoid NotificationMod where
+    mempty = NotificationMod id
+    mappend = (<>)
+
+toNotificationOptions :: NotificationMod -> NotificationOptions
+toNotificationOptions (NotificationMod f) = f defaultNotificationOptions
+
+notificationModToQueryString :: NotificationMod -> QueryString
+notificationModToQueryString = notificationOptionsToQueryString . toNotificationOptions
+
+notificationOptionsToQueryString :: NotificationOptions -> QueryString
+notificationOptionsToQueryString (NotificationOptions all') =
+    [mk "all" (if all' then "true" else "false")]
+  where
+    mk k v = (k, [QE v])
+
+-- | Include all (read and unread) notifications
+optionsAll :: NotificationMod
+optionsAll = NotificationMod $ \opts -> opts { notificationOptionsAll = True }
+
+-- | Include only unread notifications
+optionsUnreadOnly :: NotificationMod
+optionsUnreadOnly = NotificationMod $ \opts -> opts { notificationOptionsAll = False }
