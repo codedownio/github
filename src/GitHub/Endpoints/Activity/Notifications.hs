@@ -23,7 +23,8 @@ markNotificationAsReadR :: Id Notification -> GenRequest 'MtUnit 'RW ()
 markNotificationAsReadR nid = Command
     Patch
     ["notifications", "threads", toPathPart nid]
-    (encode ())
+    mempty
+
 
 -- | Mark as read.
 -- See <https://developer.github.com/v3/activity/notifications/#mark-as-read>
