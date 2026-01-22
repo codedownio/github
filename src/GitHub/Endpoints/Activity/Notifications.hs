@@ -5,6 +5,7 @@
 module GitHub.Endpoints.Activity.Notifications (
     getNotificationsR,
     markNotificationAsReadR,
+    markNotificationAsDoneR,
     markAllNotificationsAsReadR,
     ) where
 
@@ -25,6 +26,13 @@ markNotificationAsReadR nid = Command
     ["notifications", "threads", toPathPart nid]
     mempty
 
+-- | Mark a thread as done (removes it from the notification inbox).
+-- See <https://docs.github.com/en/rest/activity/notifications#delete-a-thread-subscription>
+markNotificationAsDoneR :: Id Notification -> GenRequest 'MtUnit 'RW ()
+markNotificationAsDoneR nid = Command
+    Delete
+    ["notifications", "threads", toPathPart nid]
+    mempty
 
 -- | Mark as read.
 -- See <https://developer.github.com/v3/activity/notifications/#mark-as-read>

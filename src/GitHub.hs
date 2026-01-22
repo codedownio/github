@@ -26,6 +26,7 @@ module GitHub (
     -- | See <https://developer.github.com/v3/activity/notifications/>
     getNotificationsR,
     markNotificationAsReadR,
+    markNotificationAsDoneR,
     markAllNotificationsAsReadR,
 
     -- ** Starring
