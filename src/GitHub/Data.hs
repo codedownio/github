@@ -38,6 +38,7 @@ module GitHub.Data (
     module GitHub.Data.Actions.WorkflowJobs,
     module GitHub.Data.Actions.WorkflowRuns,
     module GitHub.Data.Activities,
+    module GitHub.Data.CheckRuns,
     module GitHub.Data.Comments,
     module GitHub.Data.Content,
     module GitHub.Data.Definitions,
@@ -79,6 +80,7 @@ import GitHub.Data.Actions.Workflows
 import GitHub.Data.Actions.WorkflowJobs
 import GitHub.Data.Actions.WorkflowRuns
 import GitHub.Data.Activities
+import GitHub.Data.CheckRuns
 import GitHub.Data.Comments
 import GitHub.Data.Content
 import GitHub.Data.Definitions

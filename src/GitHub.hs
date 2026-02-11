@@ -338,6 +338,10 @@ module GitHub (
     statusesForR,
     statusForR,
 
+    -- ** Check Runs
+    -- | See <https://docs.github.com/en/rest/checks/runs>
+    checkRunsForR,
+
     -- ** Webhooks
     -- | See <https://developer.github.com/v3/repos/hooks/>
     webhooksForR,
@@ -528,6 +532,7 @@ import GitHub.Endpoints.PullRequests.Reviews
 import GitHub.Endpoints.RateLimit
 import GitHub.Endpoints.Reactions
 import GitHub.Endpoints.Repos
+import GitHub.Endpoints.Repos.CheckRuns
 import GitHub.Endpoints.Repos.Collaborators
 import GitHub.Endpoints.Repos.Comments
 import GitHub.Endpoints.Repos.Commits

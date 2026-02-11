@@ -98,6 +98,7 @@ library
     GitHub.Data.Actions.WorkflowJobs
     GitHub.Data.Actions.WorkflowRuns
     GitHub.Data.Activities
+    GitHub.Data.CheckRuns
     GitHub.Data.Comments
     GitHub.Data.Content
     GitHub.Data.Definitions
@@ -161,6 +162,7 @@ library
     GitHub.Endpoints.RateLimit
     GitHub.Endpoints.Reactions
     GitHub.Endpoints.Repos
+    GitHub.Endpoints.Repos.CheckRuns
     GitHub.Endpoints.Repos.Collaborators
     GitHub.Endpoints.Repos.Comments
     GitHub.Endpoints.Repos.Commits
