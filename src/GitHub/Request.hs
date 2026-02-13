@@ -74,7 +74,7 @@ import Prelude ()
 
 import Control.Monad.Error.Class (MonadError (..))
 
-import Control.Monad              (when)
+import Control.Monad              (void, when)
 import Control.Monad.Catch        (MonadCatch (..), MonadThrow)
 import Control.Monad.Trans.Class  (lift)
 import Control.Monad.Trans.Except (ExceptT (..), runExceptT)
@@ -85,9 +85,9 @@ import Data.Tagged                (Tagged (..))
 import Data.Version               (showVersion)
 
 import Network.HTTP.Client
-       (HttpException (..), Manager, RequestBody (..), Response (..), getUri,
-       httpLbs, method, newManager, redirectCount, requestBody, requestHeaders,
-       setQueryStringPartialEscape, setRequestIgnoreStatus)
+       (HttpException (..), HttpExceptionContent (..), Manager, RequestBody (..),
+       Response (..), getUri, httpLbs, method, newManager, redirectCount,
+       requestBody, requestHeaders, setQueryStringPartialEscape, setRequestIgnoreStatus)
 import Network.HTTP.Link.Parser (parseLinkHeaderBS)
 import Network.HTTP.Link.Types  (Link(..), LinkParam (..), href, linkParams)
 import Network.HTTP.Types       (Method, RequestHeaders, Status (..))
@@ -341,18 +341,19 @@ instance Accept 'MtRedirect where
         setRequestIgnoreStatus $ req { redirectCount = 0 }
 
 instance b ~ URI => ParseResponse 'MtRedirect b where
-    parseResponse req = Tagged . parseRedirect (getUri req)
+    parseResponse req = Tagged . parseRedirect req (getUri req)
 
 -- | Helper for handling of 'RequestRedirect'.
 --
 -- @
 -- parseRedirect :: 'HTTP.Response' 'LBS.ByteString' -> 'Either' 'Error' a
 -- @
-parseRedirect :: MonadError Error m => URI -> HTTP.Response LBS.ByteString -> m URI
-parseRedirect originalUri rsp = do
+parseRedirect :: MonadError Error m => HTTP.Request -> URI -> HTTP.Response LBS.ByteString -> m URI
+parseRedirect req originalUri rsp = do
     let status = responseStatus rsp
     when (statusCode status /= 302) $
-        throwError $ ParseError $ "invalid status: " <> T.pack (show status)
+        throwError $ HTTPError $ HttpExceptionRequest req $
+            StatusCodeException (void rsp) (LBS.toStrict $ LBS.take 1024 $ responseBody rsp)
     loc <- maybe noLocation return $ lookup "Location" $ responseHeaders rsp
     case parseURIReference $ T.unpack $ TE.decodeUtf8 loc of
         Nothing -> throwError $ ParseError $
