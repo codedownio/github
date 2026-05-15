@@ -108,7 +108,9 @@ data EventType
     | ProjectItemStatusChanged  -- ^ The issue's status in a project was changed.
     | RemovedFromProject        -- ^ The issue was removed from a project board.
     | ConvertedNoteToIssue      -- ^ The issue was created by converting a note in a project board to an issue.
-    | Unknown Text              -- ^ The issue was created by converting a note in a project board to an issue.
+    | AddedToMergeQueue         -- ^ The pull request was added to a merge queue.
+    | RemovedFromMergeQueue     -- ^ The pull request was removed from a merge queue.
+    | Unknown Text              -- ^ An unknown event type.
   deriving (Show, Data, Eq, Ord, Generic)
 
 instance NFData EventType
@@ -116,14 +118,15 @@ instance Binary EventType
 
 -- | Issue event
 data IssueEvent = IssueEvent
-    { issueEventActor     :: !SimpleUser
-    , issueEventType      :: !EventType
-    , issueEventCommitId  :: !(Maybe Text)
-    , issueEventUrl       :: !URL
-    , issueEventCreatedAt :: !UTCTime
-    , issueEventId        :: !Int
-    , issueEventIssue     :: !(Maybe Issue)
-    , issueEventLabel     :: !(Maybe IssueLabel)
+    { issueEventActor             :: !SimpleUser
+    , issueEventType              :: !EventType
+    , issueEventCommitId          :: !(Maybe Text)
+    , issueEventUrl               :: !URL
+    , issueEventCreatedAt         :: !UTCTime
+    , issueEventId                :: !Int
+    , issueEventIssue             :: !(Maybe Issue)
+    , issueEventLabel             :: !(Maybe IssueLabel)
+    , issueEventRequestedReviewer :: !(Maybe SimpleUser)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
@@ -140,6 +143,7 @@ instance FromJSON IssueEvent where
         <*> o .: "id"
         <*> o .:? "issue"
         <*> o .:? "label"
+        <*> o .:? "requested_reviewer"
 
 instance FromJSON EventType where
     parseJSON = withText "EventType" $ \t -> case T.toLower t of
@@ -171,6 +175,8 @@ instance FromJSON EventType where
         "project_v2_item_status_changed" -> pure ProjectItemStatusChanged
         "removed_from_project"           -> pure RemovedFromProject
         "converted_note_to_issue"        -> pure ConvertedNoteToIssue
+        "added_to_merge_queue"           -> pure AddedToMergeQueue
+        "removed_from_merge_queue"       -> pure RemovedFromMergeQueue
         "unsubscribed"                   -> pure Unsubscribed -- not in api docs list
         _                                -> pure $ Unknown t
 
