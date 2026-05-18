@@ -118,7 +118,7 @@ instance Binary EventType
 
 -- | Issue event
 data IssueEvent = IssueEvent
-    { issueEventActor             :: !SimpleUser
+    { issueEventActor             :: !(Maybe SimpleUser)
     , issueEventType              :: !EventType
     , issueEventCommitId          :: !(Maybe Text)
     , issueEventUrl               :: !URL
@@ -135,7 +135,7 @@ instance Binary IssueEvent
 
 instance FromJSON IssueEvent where
     parseJSON = withObject "Event" $ \o -> IssueEvent
-        <$> o .: "actor"
+        <$> o .:? "actor"
         <*> o .: "event"
         <*> o .:? "commit_id"
         <*> o .: "url"
