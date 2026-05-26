@@ -96,6 +96,7 @@ data EventType
     | Locked                    -- ^ The issue was locked by the actor.
     | Unlocked                  -- ^ The issue was unlocked by the actor.
     | HeadRefDeleted            -- ^ The pull request’s branch was deleted.
+    | HeadRefForcePushed        -- ^ The pull request’s branch was force pushed.
     | HeadRefRestored           -- ^ The pull request’s branch was restored.
     | ReviewRequested           -- ^ The actor requested review from the subject on this pull request.
     | ReviewDismissed           -- ^ The actor dismissed a review from the pull request.
@@ -163,6 +164,7 @@ instance FromJSON EventType where
         "locked"                         -> pure Locked
         "unlocked"                       -> pure Unlocked
         "head_ref_deleted"               -> pure HeadRefDeleted
+        "head_ref_force_pushed"          -> pure HeadRefForcePushed
         "head_ref_restored"              -> pure HeadRefRestored
         "review_requested"               -> pure ReviewRequested
         "review_dismissed"               -> pure ReviewDismissed
