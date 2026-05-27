@@ -1,5 +1,9 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module GitHub.Data.Issues where
 
+import Data.Aeson.TH (deriveFromJSON, deriveToJSON, defaultOptions, Options(..))
+import qualified Data.Text as T
 import GitHub.Data.Definitions
 import GitHub.Data.Id           (Id)
 import GitHub.Data.Milestone    (Milestone)
@@ -10,7 +14,18 @@ import GitHub.Data.URL          (URL(..))
 import GitHub.Internal.Prelude
 import Prelude                  ()
 
-import qualified Data.Text as T
+
+-- * Types in topological order (leaves first)
+
+data GitAuthor = GitAuthor
+    { gitAuthorName  :: !Text
+    , gitAuthorEmail :: !Text
+    , gitAuthorDate  :: !UTCTime
+    }
+  deriving (Show, Data, Eq, Ord, Generic)
+instance NFData GitAuthor
+instance Binary GitAuthor
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("gitAuthor" :: String)) } ''GitAuthor)
 
 data Issue = Issue
     { issueClosedAt    :: !(Maybe UTCTime)
@@ -34,9 +49,9 @@ data Issue = Issue
     , issueStateReason :: !(Maybe IssueStateReason)
     }
   deriving (Show, Data, Eq, Ord, Generic)
-
 instance NFData Issue
 instance Binary Issue
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("issue" :: String)) } ''Issue)
 
 data NewIssue = NewIssue
     { newIssueTitle     :: !Text
@@ -46,9 +61,9 @@ data NewIssue = NewIssue
     , newIssueLabels    :: !(Maybe (Vector (Name IssueLabel)))
     }
   deriving (Show, Data, Eq, Ord, Generic)
-
 instance NFData NewIssue
 instance Binary NewIssue
+$(deriveToJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("newIssue" :: String)), omitNothingFields = True } ''NewIssue)
 
 data EditIssue = EditIssue
     { editIssueTitle     :: !(Maybe Text)
@@ -59,9 +74,9 @@ data EditIssue = EditIssue
     , editIssueLabels    :: !(Maybe (Vector (Name IssueLabel)))
     }
   deriving  (Show, Data, Eq, Ord, Generic)
-
 instance NFData EditIssue
 instance Binary EditIssue
+$(deriveToJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("editIssue" :: String)), omitNothingFields = True } ''EditIssue)
 
 data IssueComment = IssueComment
     { issueCommentUpdatedAt :: !UTCTime
@@ -73,27 +88,40 @@ data IssueComment = IssueComment
     , issueCommentId        :: !Int
     }
   deriving (Show, Data, Eq, Ord, Generic)
-
 instance NFData IssueComment
 instance Binary IssueComment
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("issueComment" :: String)) } ''IssueComment)
 
--- | A timeline event from the issue timeline API, which can be either
--- an issue event or a comment.
-data TimelineEvent
-    = TimelineIssueEvent !IssueEvent
-    | TimelineComment !IssueComment
+data CrossReferenceSource = CrossReferenceSource
+    { crossReferenceSourceIssue :: !(Maybe Issue)
+    }
   deriving (Show, Data, Eq, Ord, Generic)
+instance NFData CrossReferenceSource
+instance Binary CrossReferenceSource
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("crossReferenceSource" :: String)), omitNothingFields = True } ''CrossReferenceSource)
 
-instance NFData TimelineEvent
-instance Binary TimelineEvent
+data TimelineCommitEvent = TimelineCommitEvent
+    { timelineCommitEventSha       :: !Text
+    , timelineCommitEventMessage   :: !Text
+    , timelineCommitEventAuthor    :: !GitAuthor
+    , timelineCommitEventCommitter :: !GitAuthor
+    }
+  deriving (Show, Data, Eq, Ord, Generic)
+instance NFData TimelineCommitEvent
+instance Binary TimelineCommitEvent
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("timelineCommitEvent" :: String)) } ''TimelineCommitEvent)
 
-instance FromJSON TimelineEvent where
-    parseJSON v = withObject "TimelineEvent" (\o -> do
-        event <- o .: "event"
-        case (event :: Text) of
-            "commented" -> TimelineComment <$> parseJSON v
-            _ -> TimelineIssueEvent <$> parseJSON v
-      ) v
+data TimelineReviewEvent = TimelineReviewEvent
+    { timelineReviewEventUser        :: !SimpleUser
+    , timelineReviewEventBody        :: !(Maybe Text)
+    , timelineReviewEventState       :: !Text
+    , timelineReviewEventSubmittedAt :: !UTCTime
+    , timelineReviewEventId          :: !Int
+    }
+  deriving (Show, Data, Eq, Ord, Generic)
+instance NFData TimelineReviewEvent
+instance Binary TimelineReviewEvent
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("timelineReviewEvent" :: String)) } ''TimelineReviewEvent)
 
 -- | See <https://developer.github.com/v3/issues/events/#events-1>
 data EventType
@@ -103,7 +131,7 @@ data EventType
     | Referenced                -- ^ The issue was referenced from a commit message. The commit_id attribute is the commit SHA1 of where that happened.
     | Merged                    -- ^ The issue was merged by the actor. The commit_id attribute is the SHA1 of the HEAD commit that was merged.
     | Assigned                  -- ^ The issue was assigned to the actor.
-    | Closed                    -- ^ The issue was closed by the actor. When the commit_id is present, it identifies the commit that closed the issue using “closes / fixes #NN” syntax.
+    | Closed                    -- ^ The issue was closed by the actor. When the commit_id is present, it identifies the commit that closed the issue using "closes / fixes #NN" syntax.
     | Reopened                  -- ^ The issue was reopened by the actor.
     | ActorUnassigned           -- ^ The issue was unassigned to the actor
     | Labeled                   -- ^ A label was added to the issue.
@@ -113,9 +141,9 @@ data EventType
     | Renamed                   -- ^ The issue title was changed.
     | Locked                    -- ^ The issue was locked by the actor.
     | Unlocked                  -- ^ The issue was unlocked by the actor.
-    | HeadRefDeleted            -- ^ The pull request’s branch was deleted.
-    | HeadRefForcePushed        -- ^ The pull request’s branch was force pushed.
-    | HeadRefRestored           -- ^ The pull request’s branch was restored.
+    | HeadRefDeleted            -- ^ The pull request's branch was deleted.
+    | HeadRefForcePushed        -- ^ The pull request's branch was force pushed.
+    | HeadRefRestored           -- ^ The pull request's branch was restored.
     | ReviewRequested           -- ^ The actor requested review from the subject on this pull request.
     | ReviewDismissed           -- ^ The actor dismissed a review from the pull request.
     | ReviewRequestRemoved      -- ^ The actor removed the review request for the subject on this pull request.
@@ -130,52 +158,10 @@ data EventType
     | AddedToMergeQueue         -- ^ The pull request was added to a merge queue.
     | RemovedFromMergeQueue     -- ^ The pull request was removed from a merge queue.
     | CrossReferenced           -- ^ The issue was referenced from another issue or pull request.
-    | Committed                 -- ^ A commit was added to the pull request's branch (timeline API only).
-    | Reviewed                  -- ^ A pull request review was submitted (timeline API only).
     | Unknown Text              -- ^ An unknown event type.
   deriving (Show, Data, Eq, Ord, Generic)
-
 instance NFData EventType
 instance Binary EventType
-
--- | Issue event
-data IssueEvent = IssueEvent
-    { issueEventActor             :: !(Maybe SimpleUser)
-    , issueEventType              :: !EventType
-    , issueEventCommitId          :: !(Maybe Text)
-    , issueEventUrl               :: !URL
-    , issueEventCreatedAt         :: !UTCTime
-    , issueEventId                :: !Int
-    , issueEventIssue             :: !(Maybe Issue)
-    , issueEventLabel             :: !(Maybe IssueLabel)
-    , issueEventRequestedReviewer :: !(Maybe SimpleUser)
-    , issueEventSourceIssue       :: !(Maybe Issue)
-    , issueEventAuthorName        :: !(Maybe Text)
-    , issueEventMessage           :: !(Maybe Text)
-    }
-  deriving (Show, Data, Eq, Ord, Generic)
-
-instance NFData IssueEvent
-instance Binary IssueEvent
-
-instance FromJSON IssueEvent where
-    parseJSON = withObject "Event" $ \o -> IssueEvent
-        <$> (o .:? "actor" >>= maybe (o .:? "user") (pure . Just))
-        <*> o .: "event"
-        <*> (o .:? "commit_id" >>= maybe (o .:? "sha") (pure . Just))
-        <*> o .:? "url" .!= URL ""
-        <*> (o .: "created_at"
-             <|> o .: "submitted_at"
-             <|> (o .: "committer" >>= withObject "Committer" (.: "date"))
-             <|> (o .: "author" >>= withObject "Author" (.: "date")))
-        <*> o .:? "id" .!= 0
-        <*> o .:? "issue"
-        <*> o .:? "label"
-        <*> o .:? "requested_reviewer"
-        <*> (o .:? "source" >>= maybe (pure Nothing) (withObject "Source" (.:? "issue")))
-        <*> (o .:? "author" >>= traverse (withObject "Author" (.: "name")))
-        <*> o .:? "message"
-
 instance FromJSON EventType where
     parseJSON = withText "EventType" $ \t -> case T.toLower t of
         "closed"                         -> pure Closed
@@ -211,63 +197,40 @@ instance FromJSON EventType where
         "removed_from_merge_queue"       -> pure RemovedFromMergeQueue
         "unsubscribed"                   -> pure Unsubscribed -- not in api docs list
         "cross-referenced"               -> pure CrossReferenced
-        "committed"                      -> pure Committed
-        "reviewed"                       -> pure Reviewed
         _                                -> pure $ Unknown t
 
-instance FromJSON IssueComment where
-    parseJSON = withObject "IssueComment" $ \o -> IssueComment
-        <$> o .: "updated_at"
-        <*> o .: "user"
-        <*> o .: "url"
-        <*> o .: "html_url"
-        <*> o .: "created_at"
-        <*> o .: "body"
-        <*> o .: "id"
+data IssueEvent = IssueEvent
+    { issueEventActor             :: !(Maybe SimpleUser)
+    , issueEventEvent             :: !EventType
+    , issueEventCommitId          :: !(Maybe Text)
+    , issueEventUrl               :: !(Maybe URL)
+    , issueEventCreatedAt         :: !UTCTime
+    , issueEventId                :: !(Maybe Int)
+    , issueEventIssue             :: !(Maybe Issue)
+    , issueEventLabel             :: !(Maybe IssueLabel)
+    , issueEventRequestedReviewer :: !(Maybe SimpleUser)
+    , issueEventSource            :: !(Maybe CrossReferenceSource)
+    }
+  deriving (Show, Data, Eq, Ord, Generic)
+instance NFData IssueEvent
+instance Binary IssueEvent
+$(deriveFromJSON defaultOptions { fieldLabelModifier = camelToSnake . drop (length ("issueEvent" :: String)) } ''IssueEvent)
 
-instance FromJSON Issue where
-    parseJSON = withObject "Issue" $ \o -> Issue
-        <$> o .:? "closed_at"
-        <*> o .: "updated_at"
-        <*> o .: "events_url"
-        <*> o .: "html_url"
-        <*> o .:? "closed_by"
-        <*> o .: "labels"
-        <*> o .: "number"
-        <*> o .: "assignees"
-        <*> o .: "user"
-        <*> o .: "title"
-        <*> o .:? "pull_request"
-        <*> o .: "url"
-        <*> o .: "created_at"
-        <*> o .: "body"
-        <*> o .: "state"
-        <*> o .: "id"
-        <*> o .: "comments"
-        <*> o .:? "milestone"
-        <*> o .:? "state_reason"
-
-instance ToJSON NewIssue where
-    toJSON (NewIssue t b a m ls) = object $ filter notNull
-        [ "title"     .= t
-        , "body"      .= b
-        , "assignees" .= a
-        , "milestone" .= m
-        , "labels"    .= ls
-        ]
-      where
-        notNull (_, Null) = False
-        notNull (_, _)    = True
-
-instance ToJSON EditIssue where
-    toJSON (EditIssue t b a s m ls) = object $ filter notNull
-        [ "title"     .= t
-        , "body"      .= b
-        , "assignees" .= a
-        , "state"     .= s
-        , "milestone" .= m
-        , "labels"    .= ls
-        ]
-      where
-        notNull (_, Null) = False
-        notNull (_, _)    = True
+-- | A timeline event from the issue timeline API.
+data TimelineEvent
+    = TimelineIssueEvent !IssueEvent
+    | TimelineComment !IssueComment
+    | TimelineCommit !TimelineCommitEvent
+    | TimelineReview !TimelineReviewEvent
+  deriving (Show, Data, Eq, Ord, Generic)
+instance NFData TimelineEvent
+instance Binary TimelineEvent
+instance FromJSON TimelineEvent where
+    parseJSON v = withObject "TimelineEvent" (\o -> do
+        event <- o .: "event"
+        case (event :: Text) of
+            "commented"  -> TimelineComment <$> parseJSON v
+            "committed"  -> TimelineCommit <$> parseJSON v
+            "reviewed"   -> TimelineReview <$> parseJSON v
+            _            -> TimelineIssueEvent <$> parseJSON v
+      ) v

@@ -3,7 +3,7 @@
 -- |
 -- This module may change between minor releases. Do not rely on its contents.
 
-module GitHub.Internal.Prelude ( module X ) where
+module GitHub.Internal.Prelude ( module X, camelToSnake ) where
 
 import Control.Applicative      as X ((<|>))
 import Control.DeepSeq          as X (NFData (..))
@@ -13,6 +13,7 @@ import Data.Aeson               as X
 import Data.Aeson.Types         as X (emptyObject, typeMismatch)
 import Data.Binary              as X (Binary)
 import Data.Binary.Instances    as X ()
+import Data.Char                (toLower, isUpper)
 import Data.Data                as X (Data)
 import Data.Foldable            as X (toList)
 import Data.Functor.Compat      as X ((<&>))
@@ -29,3 +30,13 @@ import Data.Vector              as X (Vector)
 import GHC.Generics             as X (Generic)
 import Network.HTTP.Types       as X (EscapeItem(..))
 import Prelude.Compat           as X
+
+-- | Convert CamelCase to snake_case. Useful for JSON instance deriving.
+camelToSnake :: String -> String
+camelToSnake [] = []
+camelToSnake (x:xs) = toLower x : go xs
+  where
+    go [] = []
+    go (c:cs)
+      | isUpper c = '_' : toLower c : go cs
+      | otherwise = c : go cs
