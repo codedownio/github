@@ -151,6 +151,7 @@ data IssueEvent = IssueEvent
     , issueEventRequestedReviewer :: !(Maybe SimpleUser)
     , issueEventSourceIssue       :: !(Maybe Issue)
     , issueEventAuthorName        :: !(Maybe Text)
+    , issueEventMessage           :: !(Maybe Text)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
@@ -161,7 +162,7 @@ instance FromJSON IssueEvent where
     parseJSON = withObject "Event" $ \o -> IssueEvent
         <$> (o .:? "actor" >>= maybe (o .:? "user") (pure . Just))
         <*> o .: "event"
-        <*> (o .:? "commit_id" <|> (o .:? "sha"))
+        <*> (o .:? "commit_id" >>= maybe (o .:? "sha") (pure . Just))
         <*> o .:? "url" .!= URL ""
         <*> (o .: "created_at"
              <|> o .: "submitted_at"
@@ -173,6 +174,7 @@ instance FromJSON IssueEvent where
         <*> o .:? "requested_reviewer"
         <*> (o .:? "source" >>= maybe (pure Nothing) (withObject "Source" (.:? "issue")))
         <*> (o .:? "author" >>= traverse (withObject "Author" (.: "name")))
+        <*> o .:? "message"
 
 instance FromJSON EventType where
     parseJSON = withText "EventType" $ \t -> case T.toLower t of
