@@ -128,6 +128,7 @@ module GitHub (
     -- | See <https://developer.github.com/v3/issues/events/>
     --
     eventsForIssueR,
+    timelineForIssueR,
     eventsForRepoR,
     eventR,
 

@@ -6,7 +6,7 @@ import GitHub.Data.Milestone    (Milestone)
 import GitHub.Data.Name         (Name)
 import GitHub.Data.Options      (IssueState, IssueStateReason)
 import GitHub.Data.PullRequests
-import GitHub.Data.URL          (URL)
+import GitHub.Data.URL          (URL(..))
 import GitHub.Internal.Prelude
 import Prelude                  ()
 
@@ -77,6 +77,24 @@ data IssueComment = IssueComment
 instance NFData IssueComment
 instance Binary IssueComment
 
+-- | A timeline event from the issue timeline API, which can be either
+-- an issue event or a comment.
+data TimelineEvent
+    = TimelineIssueEvent !IssueEvent
+    | TimelineComment !IssueComment
+  deriving (Show, Data, Eq, Ord, Generic)
+
+instance NFData TimelineEvent
+instance Binary TimelineEvent
+
+instance FromJSON TimelineEvent where
+    parseJSON v = withObject "TimelineEvent" (\o -> do
+        event <- o .: "event"
+        case (event :: Text) of
+            "commented" -> TimelineComment <$> parseJSON v
+            _ -> TimelineIssueEvent <$> parseJSON v
+      ) v
+
 -- | See <https://developer.github.com/v3/issues/events/#events-1>
 data EventType
     = Mentioned                 -- ^ The actor was @mentioned in an issue body.
@@ -111,6 +129,9 @@ data EventType
     | ConvertedNoteToIssue      -- ^ The issue was created by converting a note in a project board to an issue.
     | AddedToMergeQueue         -- ^ The pull request was added to a merge queue.
     | RemovedFromMergeQueue     -- ^ The pull request was removed from a merge queue.
+    | CrossReferenced           -- ^ The issue was referenced from another issue or pull request.
+    | Committed                 -- ^ A commit was added to the pull request's branch (timeline API only).
+    | Reviewed                  -- ^ A pull request review was submitted (timeline API only).
     | Unknown Text              -- ^ An unknown event type.
   deriving (Show, Data, Eq, Ord, Generic)
 
@@ -128,6 +149,8 @@ data IssueEvent = IssueEvent
     , issueEventIssue             :: !(Maybe Issue)
     , issueEventLabel             :: !(Maybe IssueLabel)
     , issueEventRequestedReviewer :: !(Maybe SimpleUser)
+    , issueEventSourceIssue       :: !(Maybe Issue)
+    , issueEventAuthorName        :: !(Maybe Text)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
@@ -136,15 +159,20 @@ instance Binary IssueEvent
 
 instance FromJSON IssueEvent where
     parseJSON = withObject "Event" $ \o -> IssueEvent
-        <$> o .:? "actor"
+        <$> (o .:? "actor" >>= maybe (o .:? "user") (pure . Just))
         <*> o .: "event"
-        <*> o .:? "commit_id"
-        <*> o .: "url"
-        <*> o .: "created_at"
-        <*> o .: "id"
+        <*> (o .:? "commit_id" <|> (o .:? "sha"))
+        <*> o .:? "url" .!= URL ""
+        <*> (o .: "created_at"
+             <|> o .: "submitted_at"
+             <|> (o .: "committer" >>= withObject "Committer" (.: "date"))
+             <|> (o .: "author" >>= withObject "Author" (.: "date")))
+        <*> o .:? "id" .!= 0
         <*> o .:? "issue"
         <*> o .:? "label"
         <*> o .:? "requested_reviewer"
+        <*> (o .:? "source" >>= maybe (pure Nothing) (withObject "Source" (.:? "issue")))
+        <*> (o .:? "author" >>= traverse (withObject "Author" (.: "name")))
 
 instance FromJSON EventType where
     parseJSON = withText "EventType" $ \t -> case T.toLower t of
@@ -180,6 +208,9 @@ instance FromJSON EventType where
         "added_to_merge_queue"           -> pure AddedToMergeQueue
         "removed_from_merge_queue"       -> pure RemovedFromMergeQueue
         "unsubscribed"                   -> pure Unsubscribed -- not in api docs list
+        "cross-referenced"               -> pure CrossReferenced
+        "committed"                      -> pure Committed
+        "reviewed"                       -> pure Reviewed
         _                                -> pure $ Unknown t
 
 instance FromJSON IssueComment where

@@ -4,6 +4,7 @@
 
 module GitHub.Endpoints.Issues.Events (
     eventsForIssueR,
+    timelineForIssueR,
     eventsForRepoR,
     eventR,
     module GitHub.Data,
@@ -18,6 +19,12 @@ import Prelude ()
 eventsForIssueR :: Name Owner -> Name Repo -> Id Issue -> FetchCount -> Request k (Vector IssueEvent)
 eventsForIssueR user repo iid =
     pagedQuery ["repos", toPathPart user, toPathPart repo, "issues", toPathPart iid, "events"] []
+
+-- | List timeline events for an issue.
+-- See <https://docs.github.com/en/rest/issues/timeline>
+timelineForIssueR :: Name Owner -> Name Repo -> IssueNumber -> FetchCount -> Request k (Vector TimelineEvent)
+timelineForIssueR user repo inum =
+    pagedQuery ["repos", toPathPart user, toPathPart repo, "issues", toPathPart inum, "timeline"] []
 
 -- | List events for a repository.
 -- See <https://developer.github.com/v3/issues/events/#list-events-for-a-repository>
