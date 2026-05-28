@@ -47,6 +47,7 @@ data Issue = Issue
     , issueComments    :: !Int
     , issueMilestone   :: !(Maybe Milestone)
     , issueStateReason :: !(Maybe IssueStateReason)
+    , issueDraft       :: !(Maybe Bool)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 instance NFData Issue
