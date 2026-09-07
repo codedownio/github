@@ -4,6 +4,7 @@
 
 module GitHub.Data.Actions.WorkflowRuns (
     WorkflowRun(..),
+    WorkflowRunPullRequest(..),
     RunAttempt(..),
     ReviewHistory(..),
     ) where
@@ -40,6 +41,16 @@ data WorkflowRun  = WorkflowRun
     , workflowRunActor :: !SimpleUser
     , workflowRunAttempt :: !Integer
     , workflowRunStartedAt :: !UTCTime
+    , workflowRunPullRequests :: !(Vector WorkflowRunPullRequest)
+    }
+  deriving (Show, Data, Eq, Ord, Generic)
+
+-- | The minimal pull request reference attached to a workflow run. Note that GitHub
+-- only populates these for runs on branches in the same repository; runs for PRs
+-- from forks come back with an empty list.
+data WorkflowRunPullRequest = WorkflowRunPullRequest
+    { workflowRunPullRequestNumber :: !Int
+    , workflowRunPullRequestUrl :: !URL
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
@@ -78,6 +89,12 @@ instance FromJSON WorkflowRun where
         <*> o .: "actor"
         <*> o .: "run_attempt"
         <*> o .: "run_started_at"
+        <*> o .:? "pull_requests" .!= mempty
+
+instance FromJSON WorkflowRunPullRequest where
+    parseJSON = withObject "WorkflowRunPullRequest" $ \o -> WorkflowRunPullRequest
+        <$> o .: "number"
+        <*> o .: "url"
 
 instance FromJSON (WithTotalCount WorkflowRun) where
     parseJSON = withObject "WorkflowRunList" $ \o -> WithTotalCount
