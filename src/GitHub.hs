@@ -217,6 +217,7 @@ module GitHub (
     pullRequestFilesR,
     isPullRequestMergedR,
     mergePullRequestR,
+    mergePullRequestWithOptionsR,
 
     -- ** Review comments
     -- | See <https://developer.github.com/v3/pulls/comments/>

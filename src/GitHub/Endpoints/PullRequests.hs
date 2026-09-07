@@ -13,6 +13,7 @@ module GitHub.Endpoints.PullRequests (
     pullRequestFilesR,
     isPullRequestMergedR,
     mergePullRequestR,
+    mergePullRequestWithOptionsR,
     module GitHub.Data
     ) where
 
@@ -99,3 +100,11 @@ mergePullRequestR user repo prid commitMessage =
     buildCommitMessageMap :: Maybe Text -> Value
     buildCommitMessageMap (Just msg) = object ["commit_message" .= msg ]
     buildCommitMessageMap Nothing    = object []
+
+-- | Merge a pull request, choosing the merge method (merge commit, squash, or rebase).
+-- Unlike 'mergePullRequestR', this returns the JSON body, so a failed merge comes back
+-- as an 'HTTPError' carrying GitHub's explanation.
+-- https://docs.github.com/en/rest/pulls/pulls#merge-a-pull-request
+mergePullRequestWithOptionsR :: Name Owner -> Name Repo -> IssueNumber -> MergePullRequestOptions -> Request 'RW PullRequestMergeResult
+mergePullRequestWithOptionsR user repo prid opts =
+    Command Put ["repos", toPathPart user, toPathPart repo, "pulls", toPathPart prid, "merge"] (encode opts)

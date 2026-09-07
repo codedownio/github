@@ -9,6 +9,9 @@ module GitHub.Data.PullRequests (
     PullRequestEventType(..),
     PullRequestReference(..),
     MergeResult(..),
+    MergeMethod(..),
+    MergePullRequestOptions(..),
+    PullRequestMergeResult(..),
     ) where
 
 import GitHub.Data.Definitions
@@ -178,6 +181,37 @@ data PullRequestReference = PullRequestReference
 instance NFData PullRequestReference
 instance Binary PullRequestReference
 
+-- | How the merge button should merge a pull request.
+data MergeMethod
+    = MergeMethodMerge
+    | MergeMethodSquash
+    | MergeMethodRebase
+    deriving (Eq, Ord, Show, Enum, Bounded, Generic, Data)
+
+instance NFData MergeMethod
+instance Binary MergeMethod
+
+data MergePullRequestOptions = MergePullRequestOptions
+    { mergePullRequestOptionsCommitTitle   :: !(Maybe Text)
+    , mergePullRequestOptionsCommitMessage :: !(Maybe Text)
+    , mergePullRequestOptionsSha           :: !(Maybe Text)
+    , mergePullRequestOptionsMergeMethod   :: !(Maybe MergeMethod)
+    }
+    deriving (Eq, Ord, Show, Generic, Data)
+
+instance NFData MergePullRequestOptions
+instance Binary MergePullRequestOptions
+
+data PullRequestMergeResult = PullRequestMergeResult
+    { pullRequestMergeResultSha     :: !Text
+    , pullRequestMergeResultMerged  :: !Bool
+    , pullRequestMergeResultMessage :: !Text
+    }
+    deriving (Eq, Ord, Show, Generic, Data)
+
+instance NFData PullRequestMergeResult
+instance Binary PullRequestMergeResult
+
 
 -------------------------------------------------------------------------------
 -- JSON instances
@@ -218,6 +252,29 @@ instance ToJSON EditPullRequest where
       where
         notNull (_, Null) = False
         notNull (_, _) = True
+
+instance ToJSON MergeMethod where
+    toJSON MergeMethodMerge  = String "merge"
+    toJSON MergeMethodSquash = String "squash"
+    toJSON MergeMethodRebase = String "rebase"
+
+instance ToJSON MergePullRequestOptions where
+    toJSON (MergePullRequestOptions title message sha method) =
+        object $ filter notNull
+            [ "commit_title"   .= title
+            , "commit_message" .= message
+            , "sha"            .= sha
+            , "merge_method"   .= method
+            ]
+      where
+        notNull (_, Null) = False
+        notNull (_, _) = True
+
+instance FromJSON PullRequestMergeResult where
+    parseJSON = withObject "PullRequestMergeResult" $ \o -> PullRequestMergeResult
+        <$> o .: "sha"
+        <*> o .: "merged"
+        <*> o .: "message"
 
 instance ToJSON CreatePullRequest where
     toJSON (CreatePullRequest t b headPR basePR) =
