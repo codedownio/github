@@ -343,6 +343,7 @@ module GitHub (
     -- ** Check Runs
     -- | See <https://docs.github.com/en/rest/checks/runs>
     checkRunsForR,
+    checkRunsPageForR,
 
     -- ** Webhooks
     -- | See <https://developer.github.com/v3/repos/hooks/>
