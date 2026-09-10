@@ -175,6 +175,7 @@ data PullRequestReference = PullRequestReference
     { pullRequestReferenceHtmlUrl  :: !(Maybe URL)
     , pullRequestReferencePatchUrl :: !(Maybe URL)
     , pullRequestReferenceDiffUrl  :: !(Maybe URL)
+    , pullRequestReferenceMergedAt :: !(Maybe UTCTime)
     }
     deriving (Eq, Ord, Show, Generic, Data)
 
@@ -359,6 +360,7 @@ instance FromJSON PullRequestReference where
         <$> o .:? "html_url"
         <*> o .:? "patch_url"
         <*> o .:? "diff_url"
+        <*> o .:? "merged_at"
 
 -- Helpers
 
